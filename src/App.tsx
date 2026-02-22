@@ -717,7 +717,7 @@ export default function App() {
               <div className="relative w-full md:w-96">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
                 <input
-                  placeholder="프로젝트나 키워드를 검색해보세요"
+                  placeholder="검색어를 입력하세요"
                   className="h-12 md:h-14 w-full rounded-xl md:rounded-2xl border-none bg-white pl-12 md:pl-14 pr-6 text-sm md:text-base text-[#191f28] placeholder:text-[#adb5bd] focus:ring-4 focus:ring-[#3182f6]/5 transition-all shadow-sm"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -1180,7 +1180,7 @@ export default function App() {
                         </div>
                       )) : (
                         <div className="w-full py-6 text-center rounded-2xl bg-slate-50/50">
-                          <p className="text-sm font-bold text-[#adb5bd]">아직 참가자가 없습니다. 첫 번째로 참여해보세요!</p>
+                          <p className="text-sm font-bold text-[#adb5bd]">아직 참가자가 없습니다.</p>
                         </div>
                       )}
                     </div>
