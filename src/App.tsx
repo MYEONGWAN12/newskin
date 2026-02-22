@@ -1114,6 +1114,33 @@ export default function App() {
                     </Badge>
                   </div>
 
+                  {/* ── Participants (Moved Above Content) ── */}
+                  <div className="bg-[#f2f4f6]/30 rounded-2xl p-3 md:p-4 border border-black/[0.02]">
+                    <div className="mb-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[12px] md:text-sm font-bold text-[#191f28]">참가자</span>
+                        <span className="inline-flex items-center justify-center bg-[#3182f6] text-white text-[10px] h-4 min-w-[16px] px-1 rounded-full font-bold">{participants.length}</span>
+                      </div>
+                      <span className="text-[10px] font-medium text-[#b0b8c1]">모집 중</span>
+                    </div>
+                    {participants.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {participants.map((participant) => (
+                          <div key={participant.id} className="flex items-center gap-1.5 bg-white border border-black/[0.04] px-2.5 py-1 rounded-full shadow-sm transition-all hover:border-[#3182f6]/20">
+                            <div className="h-4 w-4 rounded-full bg-blue-50 flex items-center justify-center text-[#3182f6]">
+                              <User size={10} />
+                            </div>
+                            <span className="text-[11px] font-bold text-[#4e5968]">{participant.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-1">
+                        <p className="text-[11px] font-medium text-[#adb5bd]">아직 함께할 팀원을 기다리고 있어요</p>
+                      </div>
+                    )}
+                  </div>
+
                   {/* ── Content ── */}
                   <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-3.5 md:p-6">
                     <p className="whitespace-pre-wrap text-[13px] md:text-lg font-medium leading-[1.7] text-[#4e5968]">
@@ -1158,29 +1185,7 @@ export default function App() {
                     <ArrowRight size={16} className="text-[#adb5bd] shrink-0" />
                   </button>
 
-                  {/* ── Participants ── */}
-                  <div>
-                    <div className="mb-4 flex items-center gap-2">
-                      <h3 className="text-base md:text-lg font-bold text-[#191f28]">참가자</h3>
-                      <span className="text-xs font-bold text-[#3182f6] bg-blue-50 px-2 py-0.5 rounded-full">{participants.length}</span>
-                    </div>
-                    {participants.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {participants.map((participant) => (
-                          <div key={participant.id} className="flex items-center gap-2 bg-[#f2f4f6] px-3 py-1.5 rounded-full transition-colors">
-                            <div className="h-5 w-5 rounded-full bg-blue-100 flex items-center justify-center text-[#3182f6]">
-                              <User size={11} />
-                            </div>
-                            <span className="text-xs font-bold text-[#4e5968]">{participant.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="py-5 text-center rounded-2xl bg-[#f9fafb]">
-                        <p className="text-sm font-medium text-[#adb5bd]">아직 참가자가 없습니다.</p>
-                      </div>
-                    )}
-                  </div>
+
 
                   {/* ── Admin Actions ── */}
                   {user?.id === selectedPost.author_id && (
