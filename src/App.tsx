@@ -1431,16 +1431,23 @@ export default function App() {
       </footer>
 
       {/* Floating Action Button (FAB) for Mobile */}
-      <div className="fixed bottom-8 right-6 z-50 md:hidden">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsPostModalOpen(true)}
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-[#3182f6] text-white shadow-[0_12px_24px_rgba(49,130,246,0.3)] active:bg-[#1b64da]"
-        >
-          <Plus size={32} />
-        </motion.button>
-      </div>
+      <AnimatePresence>
+        {!(isPostModalOpen || selectedPost || isAuthModalOpen || isProfileModalOpen || isAwardModalOpen) && (
+          <div className="fixed bottom-8 right-6 z-50 md:hidden">
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: 20 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsPostModalOpen(true)}
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-[#3182f6] text-white shadow-[0_12px_24px_rgba(49,130,246,0.3)] active:bg-[#1b64da]"
+            >
+              <Plus size={32} />
+            </motion.button>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
