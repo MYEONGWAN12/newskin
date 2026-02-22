@@ -604,13 +604,9 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl text-center md:text-left"
           >
-            <Badge variant="outline" className="mb-4 md:mb-6 px-5 py-2 text-[10px] md:text-xs font-bold uppercase tracking-wider text-[#3182f6] border-[#3182f6]/20 bg-blue-50/50 rounded-full backdrop-blur-sm">
-              <Sparkles size={12} className="mr-1.5 inline" />
-              대학교 동아리 매칭 플랫폼
-            </Badge>
+
 
             <h1 className="mb-6 md:mb-8 text-[32px] md:text-[80px] font-extrabold tracking-tight md:tracking-[-0.04em] text-[#191f28] leading-[1.2] md:leading-[1.05]">
-              함께 도전할 <br className="hidden md:block" />
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#3182f6]">최고의 동료</span>
                 <motion.span
@@ -623,8 +619,7 @@ export default function App() {
             </h1>
 
             <p className="mb-8 md:mb-12 mx-auto md:mx-0 max-w-xl text-base md:text-xl font-medium leading-relaxed text-[#4e5968]">
-              교내외 공모전, 서포터즈 동료를 만나보세요. <br className="hidden md:block" />
-              당신의 열정을 함께 나눌 파트너가 기다리고 있습니다.
+              공모전, 서포터즈 팀원을 만나는 가장 쉬운 방법.
             </p>
 
             <div className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start">
