@@ -894,15 +894,15 @@ export default function App() {
       {/* --- Modals --- */}
 
       {/* Post Creation Modal */}
-      <Modal isOpen={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} className="max-w-3xl rounded-3xl md:rounded-[40px] bg-white p-5 md:p-14">
-        <div className="space-y-8 md:y-12">
+      <Modal isOpen={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} className="max-w-3xl rounded-3xl md:rounded-[40px] bg-white p-4 md:p-14">
+        <div className="space-y-6 md:space-y-12">
           <div>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#191f28]">모집글 작성하기</h2>
-            <p className="mt-2 md:mt-3 text-base md:text-xl font-medium text-[#4e5968]">함께할 멋진 동료들을 찾아보세요.</p>
+            <h2 className="text-xl md:text-4xl font-bold tracking-tight text-[#191f28]">모집글 작성하기</h2>
+            <p className="mt-1.5 md:mt-3 text-[15px] md:text-xl font-medium text-[#4e5968]">함께할 멋진 동료들을 찾아보세요.</p>
           </div>
-          <form onSubmit={handleCreatePost} className="space-y-8">
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">제목</label>
+          <form onSubmit={handleCreatePost} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">제목</label>
               <input
                 required
                 placeholder="예) [해커톤] 프론트엔드 개발자 2분 모십니다"
@@ -911,9 +911,9 @@ export default function App() {
                 onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
               />
             </div>
-            <div className="grid gap-8 sm:grid-cols-2">
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">카테고리</label>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">카테고리</label>
                 <select
                   className="input-toss appearance-none"
                   value={newPost.category}
@@ -924,8 +924,8 @@ export default function App() {
                   ))}
                 </select>
               </div>
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
+              <div className="space-y-2">
+                <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
                 <input
                   required
                   type="date"
@@ -935,18 +935,18 @@ export default function App() {
                 />
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
+            <div className="space-y-2">
+              <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
               <textarea
                 required
                 placeholder="프로젝트 소개와 필요한 기술 스택을 자유롭게 적어주세요."
-                className="min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
+                className="min-h-[140px] md:min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-4 md:p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
                 value={newPost.content}
                 onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
               />
             </div>
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
+            <div className="space-y-2">
+              <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
               <input
                 required
                 placeholder="오픈채팅방 링크, 이메일 등"
@@ -955,9 +955,9 @@ export default function App() {
                 onChange={(e) => setNewPost({ ...newPost, contact_link: e.target.value })}
               />
             </div>
-            <div className="flex justify-end gap-4 pt-4">
-              <Button type="button" variant="ghost" onClick={() => setIsPostModalOpen(false)} className="h-14 rounded-2xl px-8 text-[#4e5968] font-bold">취소</Button>
-              <Button type="submit" className="h-14 rounded-2xl bg-[#3182f6] px-10 font-bold text-white hover:bg-[#1b64da]">등록하기</Button>
+            <div className="flex justify-end gap-3 pt-2">
+              <Button type="button" variant="ghost" onClick={() => setIsPostModalOpen(false)} className="h-12 md:h-14 rounded-2xl px-6 md:px-8 text-[#4e5968] font-bold text-[15px]">취소</Button>
+              <Button type="submit" className="h-12 md:h-14 rounded-2xl bg-[#3182f6] px-8 md:px-10 font-bold text-white hover:bg-[#1b64da] text-[15px]">등록하기</Button>
             </div>
           </form>
         </div>
@@ -968,9 +968,9 @@ export default function App() {
         {selectedPost && (
           <div className="space-y-6 md:space-y-8">
             {isEditingPost ? (
-              <form onSubmit={handleUpdatePost} className="space-y-6 md:space-y-8">
+              <form onSubmit={handleUpdatePost} className="space-y-6 md:space-y-10">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#191f28]">모집글 수정하기</h2>
+                  <h2 className="text-xl md:text-4xl font-bold tracking-tight text-[#191f28]">모집글 수정하기</h2>
                   <Button type="button" variant="ghost" onClick={() => setIsEditingPost(false)} className="rounded-full h-10 w-10 md:h-12 md:w-12 p-0 hover:bg-slate-50">
                     <X size={20} className="md:hidden" />
                     <X size={24} className="hidden md:block" />
@@ -1000,8 +1000,8 @@ export default function App() {
                       ))}
                     </select>
                   </div>
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
+                  <div className="space-y-2">
+                    <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
                     <input
                       required
                       type="date"
@@ -1012,18 +1012,18 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
+                <div className="space-y-2">
+                  <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
                   <textarea
                     required
-                    className="min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
+                    className="min-h-[140px] md:min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-4 md:p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
                     value={editPostData.content}
                     onChange={(e) => setEditPostData({ ...editPostData, content: e.target.value })}
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
+                <div className="space-y-2">
+                  <label className="text-[11px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
                   <input
                     required
                     className="input-toss"
@@ -1032,12 +1032,12 @@ export default function App() {
                   />
                 </div>
 
-                <div className="flex gap-4 pt-4">
-                  <Button type="submit" className="h-14 flex-1 rounded-2xl bg-[#3182f6] font-bold text-white hover:bg-[#1b64da]">
-                    <Check size={20} className="mr-2" />
+                <div className="flex gap-3 pt-2">
+                  <Button type="submit" className="h-12 md:h-14 flex-1 rounded-2xl bg-[#3182f6] font-bold text-white hover:bg-[#1b64da] text-[15px]">
+                    <Check size={18} className="mr-2" />
                     수정 완료
                   </Button>
-                  <Button type="button" variant="ghost" onClick={() => setIsEditingPost(false)} className="h-14 rounded-2xl px-8 text-[#4e5968] font-bold">취소</Button>
+                  <Button type="button" variant="ghost" onClick={() => setIsEditingPost(false)} className="h-12 md:h-14 rounded-2xl px-6 md:px-8 text-[#4e5968] font-bold text-[15px]">취소</Button>
                 </div>
               </form>
             ) : (
