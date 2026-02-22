@@ -609,15 +609,15 @@ export default function App() {
               대학교 동아리 매칭 플랫폼
             </Badge>
 
-            <h1 className="mb-6 md:mb-8 text-4xl md:text-[80px] font-extrabold tracking-[-0.04em] text-[#191f28] leading-[1.1] md:leading-[1.05]">
+            <h1 className="mb-6 md:mb-8 text-[32px] md:text-[80px] font-extrabold tracking-tight md:tracking-[-0.04em] text-[#191f28] leading-[1.2] md:leading-[1.05]">
               함께 도전할 <br className="hidden md:block" />
               <span className="relative inline-block">
-                <span className="relative z-10 text-[#3182f6]">최고의 동아리</span>
+                <span className="relative z-10 text-[#3182f6]">최고의 동료</span>
                 <motion.span
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ delay: 0.8, duration: 0.8 }}
-                  className="absolute bottom-2 left-0 h-3 md:h-5 bg-blue-100/60 -z-10 rounded-full"
+                  className="absolute bottom-1 md:bottom-2 left-0 h-2 md:h-5 bg-blue-100/60 -z-10 rounded-full"
                 />
               </span>를 찾으세요.
             </h1>
@@ -656,7 +656,7 @@ export default function App() {
           <button
             onClick={() => setActiveTab('posts')}
             className={cn(
-              "pb-3 md:pb-4 text-lg md:text-xl font-bold transition-all border-b-2 whitespace-nowrap",
+              "pb-3 md:pb-4 text-base md:text-xl font-bold transition-all border-b-2 md:border-b-[3px] whitespace-nowrap",
               activeTab === 'posts' ? "text-[#3182f6] border-[#3182f6]" : "text-[#adb5bd] border-transparent hover:text-[#4e5968]"
             )}
           >
@@ -665,7 +665,7 @@ export default function App() {
           <button
             onClick={() => setActiveTab('awards')}
             className={cn(
-              "pb-3 md:pb-4 text-lg md:text-xl font-bold transition-all border-b-2 whitespace-nowrap",
+              "pb-3 md:pb-4 text-base md:text-xl font-bold transition-all border-b-2 md:border-b-[3px] whitespace-nowrap",
               activeTab === 'awards' ? "text-[#3182f6] border-[#3182f6]" : "text-[#adb5bd] border-transparent hover:text-[#4e5968]"
             )}
           >
@@ -887,7 +887,7 @@ export default function App() {
       {/* --- Modals --- */}
 
       {/* Post Creation Modal */}
-      <Modal isOpen={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} className="max-w-3xl rounded-3xl md:rounded-[40px] bg-white p-6 md:p-14">
+      <Modal isOpen={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} className="max-w-3xl rounded-3xl md:rounded-[40px] bg-white p-5 md:p-14">
         <div className="space-y-8 md:y-12">
           <div>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#191f28]">모집글 작성하기</h2>
@@ -957,7 +957,7 @@ export default function App() {
       </Modal>
 
       {/* Post Detail Modal */}
-      <Modal isOpen={!!selectedPost} onClose={() => { setSelectedPost(null); setIsEditingPost(false); }} className="max-w-3xl rounded-[32px] bg-white p-6 md:p-10">
+      <Modal isOpen={!!selectedPost} onClose={() => { setSelectedPost(null); setIsEditingPost(false); }} className="max-w-3xl rounded-[32px] bg-white p-5 md:p-10">
         {selectedPost && (
           <div className="space-y-6 md:space-y-8">
             {isEditingPost ? (
@@ -1035,9 +1035,9 @@ export default function App() {
               </form>
             ) : (
               <>
-                <div className="flex flex-col gap-6 md:gap-8">
+                <div className="flex flex-col gap-6 md:gap-10">
                   {/* Header with Badges and Action Button */}
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-5 md:gap-6">
                     <div className="flex items-center justify-between">
                       <div className="flex gap-2">
                         <Badge className={cn(
@@ -1074,7 +1074,7 @@ export default function App() {
 
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                       <div className="flex-1">
-                        <h2 className="mb-4 text-3xl md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.15]">{selectedPost.title}</h2>
+                        <h2 className="mb-4 text-2xl md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.2] md:leading-[1.15]">{selectedPost.title}</h2>
                         <div className="flex flex-wrap gap-2">
                           <Badge variant="outline" className="rounded-xl border-none bg-[#f2f4f6] px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-[#4e5968] font-bold">
                             <CategoryIcon category={selectedPost.category} />
@@ -1120,14 +1120,14 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="card-toss !bg-[#f9fafb] !p-6 border-none">
+                  <div className="card-toss !bg-[#f9fafb] p-4 md:!p-6 border-none">
                     <div className="flex items-center gap-4">
                       <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl bg-white text-[#3182f6] shadow-sm ring-1 ring-slate-100">
                         <User size={24} className="md:hidden" />
                         <User size={32} className="hidden md:block" />
                       </div>
                       <div>
-                        <div className="text-lg md:text-2xl font-extrabold text-[#191f28] tracking-tight">{selectedPost.author?.name || '익명'}</div>
+                        <div className="text-base md:text-2xl font-extrabold text-[#191f28] tracking-tight">{selectedPost.author?.name || '익명'}</div>
                         <div className="text-xs md:text-sm font-bold text-[#8b95a1] tracking-wide mt-0.5">{selectedPost.author?.major || '전공 미입력'}</div>
                       </div>
                       {selectedPost.author?.github_url && (
@@ -1139,8 +1139,8 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="prose prose-slate max-w-none px-1">
-                    <p className="whitespace-pre-wrap text-base md:text-xl font-medium leading-relaxed text-[#4e5968] tracking-tight">
+                  <div className="prose prose-slate max-w-none px-0.5">
+                    <p className="whitespace-pre-wrap text-[15px] md:text-xl font-medium leading-relaxed text-[#4e5968] tracking-tight">
                       {selectedPost.content}
                     </p>
                   </div>
@@ -1148,16 +1148,16 @@ export default function App() {
                   {/* Gemini AI Link Section */}
                   <motion.div
                     whileHover={{ scale: 1.01 }}
-                    className="rounded-[32px] bg-gradient-to-br from-blue-50 to-indigo-50/50 p-6 md:p-8 border border-blue-100/50 shadow-sm"
+                    className="rounded-[28px] md:rounded-[32px] bg-gradient-to-br from-blue-50 to-indigo-50/50 p-5 md:p-8 border border-blue-100/50 shadow-sm"
                   >
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6">
                       <div className="text-center md:text-left">
-                        <h4 className="text-lg md:text-xl font-extrabold text-[#191f28] mb-1">궁금한 점이 있나요?</h4>
-                        <p className="text-sm md:text-base font-medium text-[#4e5968]">AI 동반자 Gemini가 공모전 상세 내용을 정리해드립니다.</p>
+                        <h4 className="text-base md:text-xl font-extrabold text-[#191f28] mb-1">궁금한 점이 있나요?</h4>
+                        <p className="text-[13px] md:text-base font-medium text-[#4e5968]">AI 동반자 Gemini가 내용을 요약해 드립니다.</p>
                       </div>
                       <Button
                         onClick={handleAskAI}
-                        className="h-14 px-8 rounded-2xl bg-white text-[#3182f6] font-bold hover:bg-white shadow-sm ring-1 ring-blue-100 transition-all hover:ring-blue-200 active:scale-[0.98] whitespace-nowrap"
+                        className="h-12 md:h-14 w-full md:w-auto px-8 rounded-xl md:rounded-2xl bg-white text-[#3182f6] font-bold hover:bg-white shadow-sm ring-1 ring-blue-100 transition-all hover:ring-blue-200 active:scale-[0.98] whitespace-nowrap text-sm md:text-base"
                       >
                         <Sparkles size={18} className="mr-2" />
                         Gemini에게 물어보기
@@ -1225,7 +1225,7 @@ export default function App() {
       </Modal>
 
       {/* Profile Modal */}
-      <Modal isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} className="max-w-md rounded-3xl md:rounded-[40px] bg-white p-8 md:p-12">
+      <Modal isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} className="max-w-md rounded-3xl md:rounded-[40px] bg-white p-6 md:p-12">
         <div className="space-y-8 md:space-y-10">
           <div className="text-center">
             <div className="mx-auto mb-4 md:mb-6 flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-[#f2f4f6] text-[#3182f6]">
