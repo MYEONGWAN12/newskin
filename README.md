@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# PINSKIN
 
-# Run and deploy your AI Studio app
+대학교 공모전 · 서포터즈 동료 매칭 플랫폼
 
-This contains everything you need to run your app locally.
+## 주요 기능
 
-View your app in AI Studio: https://ai.studio/apps/0f7c8809-6776-4b5d-9e84-8e6a49bd4dcb
+- 공모전/서포터즈 모집글 등록 및 참가 신청
+- 카테고리별 필터링 및 검색
+- 수상 내역 관리
+- 실시간 댓글
 
-## Run Locally
+## 기술 스택
 
-**Prerequisites:**  Node.js
+- React + TypeScript + Vite
+- Tailwind CSS v4
+- Supabase (Auth, Database)
+- Framer Motion
 
+## 실행 방법
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm install
+npm run dev
+```
