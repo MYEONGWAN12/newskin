@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard", "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --color-brand: #3182f6; /* Toss Blue */
+  --color-accent: #ff6b6b; /* Cute coral accent */
+  --color-soft: #f0f4ff;
+}
+
+@layer base {
+  body {
+    @apply bg-[#f9fafb] text-[#191f28] antialiased selection:bg-blue-100 selection:text-blue-900;
+  }
+}
+
+/* Apple-like Premium Styles */
+.glass-nav {
+  @apply bg-white/70 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50;
+}
+
+.card-toss {
+  @apply bg-white rounded-[32px] p-8 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100/50 hover:border-blue-100 hover:-translate-y-1;
+}
+
+.btn-toss {
+  @apply rounded-[20px] font-semibold transition-all active:scale-[0.97] disabled:opacity-50;
+}
+
+.input-toss {
+  @apply h-14 w-full rounded-2xl border border-slate-100 bg-[#f9fafb] px-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-white focus:border-blue-200 focus:outline-none focus:ring-4 focus:ring-blue-50 transition-all;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-slate-300;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
