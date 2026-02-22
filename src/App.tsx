@@ -596,17 +596,16 @@ export default function App() {
       </nav>
 
       {/* --- Hero Section --- */}
-      <section className="bg-white py-16 md:py-32">
-        <div className="container mx-auto px-4 md:px-8">
+      <section className="bg-white py-16 md:py-32 overflow-hidden relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(49,130,246,0.05)_0%,transparent_50%)] pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl text-center md:text-left"
           >
-
-
-            <h1 className="mb-6 md:mb-8 text-[32px] md:text-[80px] font-extrabold tracking-tight md:tracking-[-0.04em] text-[#191f28] leading-[1.2] md:leading-[1.05]">
+            <h1 className="mb-6 md:mb-8 text-[36px] md:text-[80px] font-extrabold tracking-tight md:tracking-[-0.04em] text-[#191f28] leading-[1.2] md:leading-[1.05]">
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#3182f6]">최고의 동료</span>
                 <motion.span
@@ -618,14 +617,14 @@ export default function App() {
               </span>를 찾으세요.
             </h1>
 
-            <p className="mb-8 md:mb-12 mx-auto md:mx-0 max-w-xl text-base md:text-xl font-medium leading-relaxed text-[#4e5968]">
+            <p className="mb-8 md:mb-12 mx-auto md:mx-0 max-w-xl text-base md:text-xl font-medium leading-relaxed text-[#4e5968] px-4 md:px-0">
               공모전, 서포터즈 팀원을 만나는 가장 쉬운 방법.
             </p>
 
-            <div className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start">
+            <div className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start px-4 md:px-0">
               <Button
                 size="lg"
-                className="h-14 md:h-16 rounded-full bg-[#3182f6] px-8 md:px-12 text-base md:text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]"
+                className="h-14 md:h-16 rounded-2xl md:rounded-full bg-[#3182f6] px-8 md:px-12 text-base md:text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => setIsPostModalOpen(true)}
               >
                 모집글 올리기
@@ -634,7 +633,7 @@ export default function App() {
               <Button
                 variant="outline"
                 size="lg"
-                className="h-14 md:h-16 rounded-full border-slate-200 bg-white px-8 md:px-12 text-base md:text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]"
+                className="h-14 md:h-16 rounded-2xl md:rounded-full border-slate-200 bg-white px-8 md:px-12 text-base md:text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => document.getElementById('posts-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 프로젝트 둘러보기
@@ -646,26 +645,32 @@ export default function App() {
 
       {/* --- Main Content --- */}
       <main id="posts-section" className="container mx-auto px-4 md:px-8 py-12 md:py-20">
-        {/* Tab Switcher */}
-        <div className="mb-8 md:mb-12 flex items-center gap-6 md:gap-8 border-b border-slate-100 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => setActiveTab('posts')}
-            className={cn(
-              "pb-3 md:pb-4 text-base md:text-xl font-bold transition-all border-b-2 md:border-b-[3px] whitespace-nowrap",
-              activeTab === 'posts' ? "text-[#3182f6] border-[#3182f6]" : "text-[#adb5bd] border-transparent hover:text-[#4e5968]"
-            )}
-          >
-            모집 게시판
-          </button>
-          <button
-            onClick={() => setActiveTab('awards')}
-            className={cn(
-              "pb-3 md:pb-4 text-base md:text-xl font-bold transition-all border-b-2 md:border-b-[3px] whitespace-nowrap",
-              activeTab === 'awards' ? "text-[#3182f6] border-[#3182f6]" : "text-[#adb5bd] border-transparent hover:text-[#4e5968]"
-            )}
-          >
-            수상 내역
-          </button>
+        {/* Segmented Control Tabs (Toss Style) */}
+        <div className="mb-8 md:mb-12 flex justify-center md:justify-start">
+          <div className="inline-flex items-center rounded-2xl bg-[#f2f4f6] p-1.5 md:bg-transparent md:p-0 md:gap-8 md:border-b md:border-slate-100 md:w-full">
+            <button
+              onClick={() => setActiveTab('posts')}
+              className={cn(
+                "px-6 py-2.5 rounded-xl md:rounded-none md:px-0 md:pb-4 text-sm md:text-xl font-bold transition-all whitespace-nowrap",
+                activeTab === 'posts'
+                  ? "bg-white text-[#3182f6] shadow-sm md:bg-transparent md:text-[#3182f6] md:border-b-[3px] md:border-[#3182f6] md:shadow-none"
+                  : "text-[#8b95a1] md:text-[#adb5bd] md:border-b-[3px] md:border-transparent hover:text-[#4e5968]"
+              )}
+            >
+              모집 게시판
+            </button>
+            <button
+              onClick={() => setActiveTab('awards')}
+              className={cn(
+                "px-6 py-2.5 rounded-xl md:rounded-none md:px-0 md:pb-4 text-sm md:text-xl font-bold transition-all whitespace-nowrap",
+                activeTab === 'awards'
+                  ? "bg-white text-[#3182f6] shadow-sm md:bg-transparent md:text-[#3182f6] md:border-b-[3px] md:border-[#3182f6] md:shadow-none"
+                  : "text-[#8b95a1] md:text-[#adb5bd] md:border-b-[3px] md:border-transparent hover:text-[#4e5968]"
+              )}
+            >
+              수상 내역
+            </button>
+          </div>
         </div>
 
         {activeTab === 'posts' ? (
@@ -715,10 +720,10 @@ export default function App() {
                 )}
               </div>
               <div className="relative w-full md:w-96">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8b95a1]" size={18} />
                 <input
                   placeholder="검색어를 입력하세요"
-                  className="h-12 md:h-14 w-full rounded-xl md:rounded-2xl border-none bg-white pl-12 md:pl-14 pr-6 text-sm md:text-base text-[#191f28] placeholder:text-[#adb5bd] focus:ring-4 focus:ring-[#3182f6]/5 transition-all shadow-sm"
+                  className="h-12 md:h-14 w-full rounded-2xl border-none bg-[#f2f4f6] md:bg-white pl-12 md:pl-14 pr-6 text-sm md:text-base text-[#191f28] placeholder:text-[#adb5bd] focus:ring-4 focus:ring-[#3182f6]/5 transition-all shadow-sm md:shadow-none md:ring-1 md:ring-slate-100"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -744,14 +749,29 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <div
-                        className="card-toss group flex h-full flex-col cursor-pointer relative"
+                        className="card-toss group flex h-full flex-col cursor-pointer relative overflow-hidden"
                         onClick={() => {
                           setSelectedPost(post);
                           fetchParticipants(post.id);
                         }}
                       >
+                        {/* Urgent Tag Logic */}
+                        {(() => {
+                          const diff = new Date(post.deadline).getTime() - new Date().getTime();
+                          const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                          if (post.status === '모집 중' && daysLeft >= 0 && daysLeft <= 3) {
+                            return (
+                              <div className="absolute -right-12 top-6 rotate-45 bg-[#f04452] px-12 py-1 text-[10px] font-bold text-white shadow-sm z-10">
+                                마감 임박 🔥
+                              </div>
+                            );
+                          }
+                          return null;
+                        })()}
                         <div className="mb-3 md:mb-6 flex items-center justify-between gap-4">
                           <div className="flex flex-wrap gap-1.5 md:gap-2">
                             <Badge className={cn(
@@ -1430,6 +1450,18 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Action Button (FAB) for Mobile */}
+      <div className="fixed bottom-8 right-6 z-50 md:hidden">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsPostModalOpen(true)}
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-[#3182f6] text-white shadow-[0_12px_24px_rgba(49,130,246,0.3)] active:bg-[#1b64da]"
+        >
+          <Plus size={32} />
+        </motion.button>
+      </div>
     </div>
   );
 }
