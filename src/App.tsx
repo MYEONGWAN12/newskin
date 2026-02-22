@@ -1050,165 +1050,149 @@ export default function App() {
               </form>
             ) : (
               <>
-                <div className="flex flex-col gap-6 md:gap-10">
-                  {/* Header with Badges and Action Button */}
-                  <div className="flex flex-col gap-5 md:gap-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-2">
-                        <Badge className={cn(
-                          "rounded-xl px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest",
-                          selectedPost.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
-                        )}>
-                          {selectedPost.status}
-                        </Badge>
-                        {user?.id === selectedPost.author_id && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                              setEditPostData({
-                                title: selectedPost.title,
-                                category: selectedPost.category,
-                                content: selectedPost.content,
-                                deadline: selectedPost.deadline,
-                                contact_link: selectedPost.contact_link,
-                              });
-                              setIsEditingPost(true);
-                            }}
-                            className="rounded-xl h-7 px-3 text-[#3182f6] hover:bg-blue-50 font-bold text-[10px] md:text-xs"
-                          >
-                            <Pencil size={12} className="mr-1.5" />
-                            수정하기
-                          </Button>
-                        )}
-                      </div>
-                      <span className="text-[10px] md:text-xs font-bold text-[#adb5bd] uppercase tracking-widest">
-                        {format(new Date(selectedPost.created_at), 'yyyy.MM.dd')}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                      <div className="flex-1">
-                        <h2 className="mb-4 text-2xl md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.2] md:leading-[1.15]">{selectedPost.title}</h2>
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline" className="rounded-xl border-none bg-[#f2f4f6] px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-[#4e5968] font-bold">
-                            <CategoryIcon category={selectedPost.category} />
-                            <span className="ml-1.5">{selectedPost.category}</span>
-                          </Badge>
-                          <Badge variant="outline" className="rounded-xl border-none bg-rose-50 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-[#f04452] font-bold">
-                            <Calendar size={14} className="mr-1.5" />
-                            마감: {format(new Date(selectedPost.deadline), 'MM월 dd일')}
-                          </Badge>
-                        </div>
-                      </div>
-
-                      {/* Immediate Action Button */}
-                      <div className="w-full md:w-auto md:shrink-0">
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <Button
-                            onClick={() => handleJoinPost(selectedPost.id)}
-                            disabled={actionLoading}
-                            className={cn(
-                              "h-14 md:h-20 w-full md:px-12 rounded-[24px] md:rounded-[32px] text-base md:text-xl font-bold transition-all disabled:opacity-50",
-                              myJoins.includes(selectedPost.id)
-                                ? "bg-slate-100 text-[#4e5968] hover:bg-slate-200 shadow-none"
-                                : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_12px_24px_rgba(49,130,246,0.3)]"
-                            )}
-                          >
-                            {actionLoading ? (
-                              <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
-                            ) : (
-                              <>
-                                {myJoins.includes(selectedPost.id) ? (
-                                  <>참가 취소</>
-                                ) : (
-                                  <><Zap size={20} className="mr-2 fill-current" />참가 신청 ({selectedPost.member_count || 0}명)</>
-                                )}
-                              </>
-                            )}
-                          </Button>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="card-toss !bg-[#f9fafb] p-4 md:!p-6 border-none">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl bg-white text-[#3182f6] shadow-sm ring-1 ring-slate-100">
-                        <User size={24} className="md:hidden" />
-                        <User size={32} className="hidden md:block" />
+                <div className="flex flex-col gap-5 md:gap-10">
+                  {/* ── Mobile-First Header ── */}
+                  {/* Top Bar: Author + Date + Edit */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#f2f4f6] text-[#3182f6]">
+                        <User size={18} className="md:hidden" />
+                        <User size={22} className="hidden md:block" />
                       </div>
                       <div>
-                        <div className="text-base md:text-2xl font-extrabold text-[#191f28] tracking-tight">{selectedPost.author?.name || '익명'}</div>
-                        <div className="text-xs md:text-sm font-bold text-[#8b95a1] tracking-wide mt-0.5">{selectedPost.author?.major || '전공 미입력'}</div>
+                        <div className="text-sm md:text-base font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
+                        <div className="text-[11px] md:text-xs font-medium text-[#8b95a1]">
+                          {selectedPost.author?.major || '전공 미입력'} · {format(new Date(selectedPost.created_at), 'MM월 dd일')}
+                        </div>
                       </div>
+                    </div>
+                    <div className="flex items-center gap-1.5">
                       {selectedPost.author?.github_url && (
-                        <a href={selectedPost.author.github_url} target="_blank" rel="noreferrer" className="ml-auto flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-white text-[#adb5bd] hover:text-[#191f28] transition-all shadow-sm ring-1 ring-slate-100">
-                          <Github size={20} className="md:hidden" />
-                          <Github size={24} className="hidden md:block" />
+                        <a href={selectedPost.author.github_url} target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f2f4f6] text-[#8b95a1] hover:text-[#191f28] transition-all">
+                          <Github size={16} />
                         </a>
+                      )}
+                      {user?.id === selectedPost.author_id && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setEditPostData({
+                              title: selectedPost.title,
+                              category: selectedPost.category,
+                              content: selectedPost.content,
+                              deadline: selectedPost.deadline,
+                              contact_link: selectedPost.contact_link,
+                            });
+                            setIsEditingPost(true);
+                          }}
+                          className="h-9 w-9 rounded-xl bg-[#f2f4f6] text-[#3182f6] hover:bg-blue-50 p-0"
+                        >
+                          <Pencil size={14} />
+                        </Button>
                       )}
                     </div>
                   </div>
 
-                  <div className="prose prose-slate max-w-none px-0.5">
-                    <p className="whitespace-pre-wrap text-[15px] md:text-xl font-medium leading-relaxed text-[#4e5968] tracking-tight">
+                  {/* Title */}
+                  <div>
+                    <h2 className="text-[22px] md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.3] md:leading-[1.15]">{selectedPost.title}</h2>
+                  </div>
+
+                  {/* ── Stats Row ── */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge className={cn(
+                      "rounded-full px-3.5 py-1 text-[11px] md:text-xs font-bold",
+                      selectedPost.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
+                    )}>
+                      {selectedPost.status}
+                    </Badge>
+                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3.5 py-1 text-[11px] md:text-xs text-[#4e5968] font-bold">
+                      <CategoryIcon category={selectedPost.category} />
+                      <span className="ml-1">{selectedPost.category}</span>
+                    </Badge>
+                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3.5 py-1 text-[11px] md:text-xs text-[#f04452] font-bold">
+                      <Calendar size={12} className="mr-1" />
+                      {format(new Date(selectedPost.deadline), 'MM/dd')} 마감
+                    </Badge>
+                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3.5 py-1 text-[11px] md:text-xs text-[#3182f6] font-bold">
+                      <Users size={12} className="mr-1" />
+                      {selectedPost.member_count || 0}명 참가
+                    </Badge>
+                  </div>
+
+                  {/* ── Content ── */}
+                  <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-4 md:p-6">
+                    <p className="whitespace-pre-wrap text-[14px] md:text-lg font-medium leading-[1.8] text-[#4e5968]">
                       {selectedPost.content}
                     </p>
                   </div>
 
-                  {/* Gemini AI Link Section */}
-                  <motion.div
-                    whileHover={{ scale: 1.01 }}
-                    className="rounded-[28px] md:rounded-[32px] bg-gradient-to-br from-blue-50 to-indigo-50/50 p-5 md:p-8 border border-blue-100/50 shadow-sm"
-                  >
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6">
-                      <div className="text-center md:text-left">
-                        <h4 className="text-base md:text-xl font-extrabold text-[#191f28] mb-1">궁금한 점이 있나요?</h4>
-                        <p className="text-[13px] md:text-base font-medium text-[#4e5968]">AI 동반자 Gemini가 내용을 요약해 드립니다.</p>
-                      </div>
-                      <Button
-                        onClick={handleAskAI}
-                        className="h-12 md:h-14 w-full md:w-auto px-8 rounded-xl md:rounded-2xl bg-white text-[#3182f6] font-bold hover:bg-white shadow-sm ring-1 ring-blue-100 transition-all hover:ring-blue-200 active:scale-[0.98] whitespace-nowrap text-sm md:text-base"
-                      >
-                        <Sparkles size={18} className="mr-2" />
-                        Gemini에게 물어보기
-                      </Button>
-                    </div>
+                  {/* ── Join Action (Primary CTA) ── */}
+                  <motion.div whileTap={{ scale: 0.98 }}>
+                    <Button
+                      onClick={() => handleJoinPost(selectedPost.id)}
+                      disabled={actionLoading}
+                      className={cn(
+                        "h-14 md:h-16 w-full rounded-2xl md:rounded-3xl text-base md:text-lg font-bold transition-all disabled:opacity-50",
+                        myJoins.includes(selectedPost.id)
+                          ? "bg-[#f2f4f6] text-[#4e5968] hover:bg-[#e5e8eb] shadow-none"
+                          : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_8px_20px_rgba(49,130,246,0.25)]"
+                      )}
+                    >
+                      {actionLoading ? (
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
+                      ) : myJoins.includes(selectedPost.id) ? (
+                        "참가 취소"
+                      ) : (
+                        <><Zap size={18} className="mr-2 fill-current" />참가 신청하기</>
+                      )}
+                    </Button>
                   </motion.div>
 
-                  {/* Participants Section */}
-                  <div className="pt-8 border-t border-slate-100">
-                    <div className="mb-6 flex items-center justify-between">
-                      <h3 className="text-xl font-bold text-[#191f28] flex items-center gap-2">
-                        <Users size={20} className="text-[#3182f6]" />
-                        참가자 목록
-                        <span className="text-sm font-bold text-[#3182f6] bg-blue-50 px-2 py-0.5 rounded-lg">{participants.length}</span>
-                      </h3>
+                  {/* ── AI Assistant ── */}
+                  <button
+                    onClick={handleAskAI}
+                    className="flex items-center gap-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 p-4 md:p-5 border border-blue-100/50 w-full text-left transition-all active:scale-[0.99] hover:shadow-sm"
+                  >
+                    <div className="flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
+                      <Sparkles size={20} className="text-[#3182f6]" />
                     </div>
-                    <div className="flex flex-wrap gap-3">
-                      {participants.length > 0 ? participants.map((participant) => (
-                        <div key={participant.id} className="flex items-center gap-2 bg-[#f9fafb] px-4 py-2 rounded-2xl border border-slate-50 hover:bg-[#f2f4f6] transition-colors">
-                          <div className="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center text-[#3182f6]">
-                            <User size={14} />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm md:text-base font-bold text-[#191f28]">Gemini에게 물어보기</div>
+                      <div className="text-[12px] md:text-sm font-medium text-[#8b95a1] truncate">AI가 이 공모전의 핵심을 요약해 드립니다</div>
+                    </div>
+                    <ArrowRight size={16} className="text-[#adb5bd] shrink-0" />
+                  </button>
+
+                  {/* ── Participants ── */}
+                  <div>
+                    <div className="mb-4 flex items-center gap-2">
+                      <h3 className="text-base md:text-lg font-bold text-[#191f28]">참가자</h3>
+                      <span className="text-xs font-bold text-[#3182f6] bg-blue-50 px-2 py-0.5 rounded-full">{participants.length}</span>
+                    </div>
+                    {participants.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {participants.map((participant) => (
+                          <div key={participant.id} className="flex items-center gap-2 bg-[#f2f4f6] px-3 py-1.5 rounded-full transition-colors">
+                            <div className="h-5 w-5 rounded-full bg-blue-100 flex items-center justify-center text-[#3182f6]">
+                              <User size={11} />
+                            </div>
+                            <span className="text-xs font-bold text-[#4e5968]">{participant.name}</span>
                           </div>
-                          <span className="text-sm font-bold text-[#4e5968]">{participant.name}</span>
-                          <span className="text-[10px] font-bold text-[#8b95a1]">{participant.major}</span>
-                        </div>
-                      )) : (
-                        <div className="w-full py-6 text-center rounded-2xl bg-slate-50/50">
-                          <p className="text-sm font-bold text-[#adb5bd]">아직 참가자가 없습니다.</p>
-                        </div>
-                      )}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="py-5 text-center rounded-2xl bg-[#f9fafb]">
+                        <p className="text-sm font-medium text-[#adb5bd]">아직 참가자가 없습니다.</p>
+                      </div>
+                    )}
                   </div>
 
+                  {/* ── Admin Actions ── */}
                   {user?.id === selectedPost.author_id && (
-                    <div className="flex gap-2">
-                      <Button variant="outline" className="h-12 flex-1 rounded-xl border-none bg-[#f2f4f6] text-sm font-bold text-[#4e5968] hover:bg-[#e5e8eb]" onClick={async () => {
+                    <div className="flex gap-2 pt-2 border-t border-slate-100">
+                      <Button variant="outline" className="h-11 flex-1 rounded-xl border-none bg-[#f2f4f6] text-sm font-bold text-[#4e5968] hover:bg-[#e5e8eb]" onClick={async () => {
                         const newStatus = selectedPost.status === '모집 중' ? '모집 완료' : '모집 중';
                         setActionLoading(true);
                         const { error } = await supabase
@@ -1221,14 +1205,14 @@ export default function App() {
                         }
                         setActionLoading(false);
                       }}>
-                        {selectedPost.status === '모집 중' ? '모집 완료' : '다시 모집'}
+                        {selectedPost.status === '모집 중' ? '모집 마감' : '다시 모집'}
                       </Button>
                       <Button
                         variant="outline"
                         onClick={() => handleDeletePost(selectedPost.id)}
-                        className="h-12 w-12 rounded-xl border-none bg-rose-50 text-rose-500 hover:bg-rose-100 p-0"
+                        className="h-11 w-11 rounded-xl border-none bg-rose-50 text-rose-500 hover:bg-rose-100 p-0"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </Button>
                     </div>
                   )}
