@@ -764,9 +764,9 @@ export default function App() {
                                 </span>
                               )}
                               <span className={cn(
-                                "rounded-full px-2 py-0.5 text-[10px] font-bold",
+                                "rounded-full px-2.5 py-[3px] text-[10px] font-black tracking-tight",
                                 post.status === '모집 중'
-                                  ? "bg-[#e8f3ff] text-[#3182f6]"
+                                  ? "bg-[#3182f6] text-white shadow-[0_2px_8px_rgba(49,130,246,0.2)]"
                                   : "bg-[#f2f4f6] text-[#8b95a1]"
                               )}>
                                 {post.status}
@@ -774,8 +774,7 @@ export default function App() {
                             </div>
                           </div>
 
-                          {/* Title */}
-                          <h3 className="mb-1.5 text-[15px] md:text-[17px] font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors leading-[1.4] line-clamp-2">
+                          <h3 className="mb-2 text-[17px] md:text-[19px] font-[900] tracking-[-0.03em] text-[#191f28] group-hover:text-[#3182f6] transition-colors leading-[1.3] line-clamp-2">
                             {post.title}
                           </h3>
 
@@ -1095,22 +1094,24 @@ export default function App() {
                   {/* ── Stats Row ── */}
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge className={cn(
-                      "rounded-full px-3 py-0.5 text-[10px] md:text-xs font-bold",
-                      selectedPost.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
+                      "rounded-full px-3 py-1 text-[10px] md:text-xs font-extrabold",
+                      selectedPost.status === '모집 중'
+                        ? "bg-[#3182f6] text-white border-none shadow-sm"
+                        : "bg-slate-100 text-[#8b95a1] border-none"
                     )}>
                       {selectedPost.status}
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3 py-0.5 text-[10px] md:text-xs text-[#4e5968] font-bold">
+                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3 py-1 text-[10px] md:text-xs text-[#4e5968] font-bold">
                       <CategoryIcon category={selectedPost.category} />
-                      <span className="ml-1">{selectedPost.category}</span>
+                      <span className="ml-1.5">{selectedPost.category}</span>
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3 py-0.5 text-[10px] md:text-xs text-[#f04452] font-bold">
-                      <Calendar size={11} className="mr-1" />
+                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3 py-1 text-[10px] md:text-xs text-[#f04452] font-extrabold ring-1 ring-rose-100">
+                      <Calendar size={11} className="mr-1.5" />
                       {format(new Date(selectedPost.deadline), 'MM/dd')} 마감
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3 py-0.5 text-[10px] md:text-xs text-[#3182f6] font-bold">
-                      <Users size={11} className="mr-1" />
-                      {selectedPost.member_count || 0}명 참가
+                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3 py-1 text-[10px] md:text-xs text-[#3182f6] font-extrabold ring-1 ring-blue-100">
+                      <Users size={11} className="mr-1.5" />
+                      {selectedPost.member_count || 0}명 참가 중
                     </Badge>
                   </div>
 
@@ -1124,13 +1125,20 @@ export default function App() {
                       <span className="text-[10px] font-medium text-[#b0b8c1]">모집 중</span>
                     </div>
                     {participants.length > 0 ? (
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-2">
                         {participants.map((participant) => (
-                          <div key={participant.id} className="flex items-center gap-1.5 bg-white border border-black/[0.04] px-2.5 py-1 rounded-full shadow-sm transition-all hover:border-[#3182f6]/20">
-                            <div className="h-4 w-4 rounded-full bg-blue-50 flex items-center justify-center text-[#3182f6]">
+                          <div key={participant.id} className="flex items-center gap-2 bg-white border border-black/[0.04] px-3 py-1.5 rounded-full shadow-sm transition-all hover:border-[#3182f6]/10 group/p">
+                            <div className="h-4.5 w-4.5 rounded-full bg-blue-50 flex items-center justify-center text-[#3182f6]">
                               <User size={10} />
                             </div>
-                            <span className="text-[11px] font-bold text-[#4e5968]">{participant.name}</span>
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[12px] font-bold text-[#4e5968]">{participant.name}</span>
+                              {participant.major && (
+                                <span className="text-[9px] font-bold bg-[#f2f4f6] text-[#8b95a1] px-1.5 py-0.5 rounded-md group-hover/p:text-[#3182f6] group-hover/p:bg-blue-50 transition-colors">
+                                  {participant.major}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -1150,24 +1158,70 @@ export default function App() {
 
                   {/* ── Join Action (Primary CTA) ── */}
                   <motion.div whileTap={{ scale: 0.98 }}>
-                    <Button
-                      onClick={() => handleJoinPost(selectedPost.id)}
-                      disabled={actionLoading}
-                      className={cn(
-                        "h-12 md:h-16 w-full rounded-xl md:rounded-3xl text-[15px] md:text-lg font-bold transition-all disabled:opacity-50",
-                        myJoins.includes(selectedPost.id)
-                          ? "bg-[#f2f4f6] text-[#4e5968] hover:bg-[#e5e8eb] shadow-none"
-                          : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_4px_12px_rgba(49,130,246,0.15)]"
-                      )}
-                    >
-                      {actionLoading ? (
-                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
-                      ) : myJoins.includes(selectedPost.id) ? (
-                        "참가 취소"
-                      ) : (
-                        <><Zap size={16} className="mr-2 fill-current" />참가 신청하기</>
-                      )}
-                    </Button>
+                    {user?.id === selectedPost.author_id ? (
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={async () => {
+                            const newStatus = selectedPost.status === '모집 중' ? '모집 완료' : '모집 중';
+                            setActionLoading(true);
+                            const { error } = await supabase
+                              .from('posts')
+                              .update({ status: newStatus })
+                              .eq('id', selectedPost.id);
+                            if (!error) {
+                              setSelectedPost({ ...selectedPost, status: newStatus as any });
+                              fetchPosts();
+                            }
+                            setActionLoading(false);
+                          }}
+                          disabled={actionLoading}
+                          className={cn(
+                            "h-14 md:h-16 flex-1 rounded-xl md:rounded-3xl text-[16px] md:text-lg font-bold transition-all disabled:opacity-50",
+                            selectedPost.status === '모집 중'
+                              ? "bg-rose-500 text-white hover:bg-rose-600 shadow-[0_8px_20px_rgba(244,67,54,0.2)]"
+                              : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_8px_20px_rgba(49,130,246,0.2)]"
+                          )}
+                        >
+                          {actionLoading ? (
+                            <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
+                          ) : selectedPost.status === '모집 중' ? "모집 마감하기" : "모집 다시 시작"}
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            setEditPostData({
+                              title: selectedPost.title,
+                              category: selectedPost.category,
+                              content: selectedPost.content,
+                              deadline: selectedPost.deadline,
+                              contact_link: selectedPost.contact_link,
+                            });
+                            setIsEditingPost(true);
+                          }}
+                          className="h-14 md:h-16 px-6 md:px-8 rounded-xl md:rounded-3xl bg-[#f2f4f6] text-[#4e5968] font-bold hover:bg-[#e5e8eb]"
+                        >
+                          <Pencil size={18} />
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        onClick={() => handleJoinPost(selectedPost.id)}
+                        disabled={actionLoading}
+                        className={cn(
+                          "h-14 md:h-16 w-full rounded-xl md:rounded-3xl text-[16px] md:text-lg font-bold transition-all disabled:opacity-50",
+                          myJoins.includes(selectedPost.id)
+                            ? "bg-[#f2f4f6] text-[#4e5968] hover:bg-[#e5e8eb] shadow-none"
+                            : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_8px_20px_rgba(49,130,246,0.25)]"
+                        )}
+                      >
+                        {actionLoading ? (
+                          <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
+                        ) : myJoins.includes(selectedPost.id) ? (
+                          "참가 신청 취소"
+                        ) : (
+                          <><Zap size={18} className="mr-2 fill-current" />함께하기 위해 참가 신청</>
+                        )}
+                      </Button>
+                    )}
                   </motion.div>
 
                   {/* ── AI Assistant ── */}
@@ -1187,30 +1241,16 @@ export default function App() {
 
 
 
-                  {/* ── Admin Actions ── */}
+                  {/* ── Admin Secondary Actions ── */}
                   {user?.id === selectedPost.author_id && (
-                    <div className="flex gap-2 pt-2 border-t border-slate-100">
-                      <Button variant="outline" className="h-11 flex-1 rounded-xl border-none bg-[#f2f4f6] text-sm font-bold text-[#4e5968] hover:bg-[#e5e8eb]" onClick={async () => {
-                        const newStatus = selectedPost.status === '모집 중' ? '모집 완료' : '모집 중';
-                        setActionLoading(true);
-                        const { error } = await supabase
-                          .from('posts')
-                          .update({ status: newStatus })
-                          .eq('id', selectedPost.id);
-                        if (!error) {
-                          setSelectedPost({ ...selectedPost, status: newStatus as any });
-                          fetchPosts();
-                        }
-                        setActionLoading(false);
-                      }}>
-                        {selectedPost.status === '모집 중' ? '모집 마감' : '다시 모집'}
-                      </Button>
+                    <div className="flex justify-end pt-2 border-t border-slate-100/50">
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         onClick={() => handleDeletePost(selectedPost.id)}
-                        className="h-11 w-11 rounded-xl border-none bg-rose-50 text-rose-500 hover:bg-rose-100 p-0"
+                        className="h-10 text-rose-500 hover:text-rose-600 hover:bg-rose-50 px-3 text-xs font-bold"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={14} className="mr-1.5" />
+                        공모전 게시글 삭제
                       </Button>
                     </div>
                   )}
