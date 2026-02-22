@@ -1043,17 +1043,17 @@ export default function App() {
               </form>
             ) : (
               <>
-                <div className="flex flex-col gap-5 md:gap-10">
+                <div className="flex flex-col gap-4 md:gap-10">
                   {/* ── Mobile-First Header ── */}
                   {/* Top Bar: Author + Date + Edit */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#f2f4f6] text-[#3182f6]">
-                        <User size={18} className="md:hidden" />
+                      <div className="flex h-9 w-9 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#f2f4f6] text-[#3182f6]">
+                        <User size={16} className="md:hidden" />
                         <User size={22} className="hidden md:block" />
                       </div>
                       <div>
-                        <div className="text-sm md:text-base font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
+                        <div className="text-[13px] md:text-base font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
                         <div className="text-[11px] md:text-xs font-medium text-[#8b95a1]">
                           {selectedPost.author?.major || '전공 미입력'} · {format(new Date(selectedPost.created_at), 'MM월 dd일')}
                         </div>
@@ -1089,34 +1089,34 @@ export default function App() {
 
                   {/* Title */}
                   <div>
-                    <h2 className="text-[22px] md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.3] md:leading-[1.15]">{selectedPost.title}</h2>
+                    <h2 className="text-[20px] md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.3] md:leading-[1.15]">{selectedPost.title}</h2>
                   </div>
 
                   {/* ── Stats Row ── */}
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge className={cn(
-                      "rounded-full px-3.5 py-1 text-[11px] md:text-xs font-bold",
+                      "rounded-full px-3 py-0.5 text-[10px] md:text-xs font-bold",
                       selectedPost.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
                     )}>
                       {selectedPost.status}
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3.5 py-1 text-[11px] md:text-xs text-[#4e5968] font-bold">
+                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3 py-0.5 text-[10px] md:text-xs text-[#4e5968] font-bold">
                       <CategoryIcon category={selectedPost.category} />
                       <span className="ml-1">{selectedPost.category}</span>
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3.5 py-1 text-[11px] md:text-xs text-[#f04452] font-bold">
-                      <Calendar size={12} className="mr-1" />
+                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3 py-0.5 text-[10px] md:text-xs text-[#f04452] font-bold">
+                      <Calendar size={11} className="mr-1" />
                       {format(new Date(selectedPost.deadline), 'MM/dd')} 마감
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3.5 py-1 text-[11px] md:text-xs text-[#3182f6] font-bold">
-                      <Users size={12} className="mr-1" />
+                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3 py-0.5 text-[10px] md:text-xs text-[#3182f6] font-bold">
+                      <Users size={11} className="mr-1" />
                       {selectedPost.member_count || 0}명 참가
                     </Badge>
                   </div>
 
                   {/* ── Content ── */}
-                  <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-4 md:p-6">
-                    <p className="whitespace-pre-wrap text-[14px] md:text-lg font-medium leading-[1.8] text-[#4e5968]">
+                  <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-3.5 md:p-6">
+                    <p className="whitespace-pre-wrap text-[13px] md:text-lg font-medium leading-[1.7] text-[#4e5968]">
                       {selectedPost.content}
                     </p>
                   </div>
@@ -1127,10 +1127,10 @@ export default function App() {
                       onClick={() => handleJoinPost(selectedPost.id)}
                       disabled={actionLoading}
                       className={cn(
-                        "h-14 md:h-16 w-full rounded-2xl md:rounded-3xl text-base md:text-lg font-bold transition-all disabled:opacity-50",
+                        "h-12 md:h-16 w-full rounded-xl md:rounded-3xl text-[15px] md:text-lg font-bold transition-all disabled:opacity-50",
                         myJoins.includes(selectedPost.id)
                           ? "bg-[#f2f4f6] text-[#4e5968] hover:bg-[#e5e8eb] shadow-none"
-                          : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_8px_20px_rgba(49,130,246,0.25)]"
+                          : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_4px_12px_rgba(49,130,246,0.15)]"
                       )}
                     >
                       {actionLoading ? (
@@ -1138,7 +1138,7 @@ export default function App() {
                       ) : myJoins.includes(selectedPost.id) ? (
                         "참가 취소"
                       ) : (
-                        <><Zap size={18} className="mr-2 fill-current" />참가 신청하기</>
+                        <><Zap size={16} className="mr-2 fill-current" />참가 신청하기</>
                       )}
                     </Button>
                   </motion.div>
@@ -1146,10 +1146,10 @@ export default function App() {
                   {/* ── AI Assistant ── */}
                   <button
                     onClick={handleAskAI}
-                    className="flex items-center gap-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 p-4 md:p-5 border border-blue-100/50 w-full text-left transition-all active:scale-[0.99] hover:shadow-sm"
+                    className="flex items-center gap-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 p-3.5 md:p-5 border border-blue-100/50 w-full text-left transition-all active:scale-[0.99] hover:shadow-sm"
                   >
-                    <div className="flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
-                      <Sparkles size={20} className="text-[#3182f6]" />
+                    <div className="flex h-9 w-9 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
+                      <Sparkles size={18} className="text-[#3182f6]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm md:text-base font-bold text-[#191f28]">Gemini에게 물어보기</div>
