@@ -139,8 +139,7 @@ export default function App() {
   const [isEditingPost, setIsEditingPost] = useState(false);
   const [editPostData, setEditPostData] = useState<Partial<Post>>({});
   const [filter, setFilter] = useState<string>('전체');
-  const [showMyPosts, setShowMyPosts] = useState(false);
-  const [showJoinedOnly, setShowJoinedOnly] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState('');
 
   // Form States
@@ -548,9 +547,7 @@ export default function App() {
     const matchesFilter = filter === '전체' || post.category === filter;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.content.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesMyPosts = !showMyPosts || post.author_id === user?.id;
-    const matchesJoined = !showJoinedOnly || myJoins.includes(post.id);
-    return matchesFilter && matchesSearch && matchesMyPosts && matchesJoined;
+    return matchesFilter && matchesSearch;
   });
 
   return (
@@ -699,30 +696,7 @@ export default function App() {
                     </button>
                   ))}
                 </div>
-                {user && (
-                  <div className="flex flex-wrap items-center gap-3">
-                    <button
-                      onClick={() => setShowMyPosts(!showMyPosts)}
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all border",
-                        showMyPosts ? "bg-blue-50 text-[#3182f6] border-blue-100" : "bg-white text-[#8b95a1] hover:bg-slate-50 border-slate-100"
-                      )}
-                    >
-                      {showMyPosts ? <CheckCircle2 size={14} /> : <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-200" />}
-                      내가 쓴 글
-                    </button>
-                    <button
-                      onClick={() => setShowJoinedOnly(!showJoinedOnly)}
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all border",
-                        showJoinedOnly ? "bg-emerald-50 text-emerald-500 border-emerald-100" : "bg-white text-[#8b95a1] hover:bg-slate-50 border-slate-100"
-                      )}
-                    >
-                      {showJoinedOnly ? <CheckCircle2 size={14} /> : <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-200" />}
-                      참가 중
-                    </button>
-                  </div>
-                )}
+
               </div>
               <div className="relative w-full md:w-96">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8b95a1]" size={18} />
