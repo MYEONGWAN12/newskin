@@ -595,36 +595,37 @@ export default function App() {
         </div>
       </nav>
 
-      {/* --- Hero Section --- */}
-      <section className="bg-white py-16 md:py-32 overflow-hidden relative">
+
+      {/* --- Hero Section (Desktop Only) --- */}
+      <section className="hidden md:block bg-white py-32 overflow-hidden relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(49,130,246,0.05)_0%,transparent_50%)] pointer-events-none" />
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="container mx-auto px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl text-center md:text-left"
+            className="max-w-3xl text-left"
           >
-            <h1 className="mb-6 md:mb-8 text-[36px] md:text-[80px] font-extrabold tracking-tight md:tracking-[-0.04em] text-[#191f28] leading-[1.2] md:leading-[1.05]">
+            <h1 className="mb-8 text-[80px] font-extrabold tracking-[-0.04em] text-[#191f28] leading-[1.05]">
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#3182f6]">최고의 동료</span>
                 <motion.span
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ delay: 0.8, duration: 0.8 }}
-                  className="absolute bottom-1 md:bottom-2 left-0 h-2 md:h-5 bg-blue-100/60 -z-10 rounded-full"
+                  className="absolute bottom-2 left-0 h-5 bg-blue-100/60 -z-10 rounded-full"
                 />
               </span>를 찾으세요.
             </h1>
 
-            <p className="mb-8 md:mb-12 mx-auto md:mx-0 max-w-xl text-base md:text-xl font-medium leading-relaxed text-[#4e5968] px-4 md:px-0">
+            <p className="mb-12 max-w-xl text-xl font-medium leading-relaxed text-[#4e5968]">
               공모전, 서포터즈 팀원을 만나는 가장 쉬운 방법.
             </p>
 
-            <div className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start px-4 md:px-0">
+            <div className="flex gap-4">
               <Button
                 size="lg"
-                className="h-14 md:h-16 rounded-2xl md:rounded-full bg-[#3182f6] px-8 md:px-12 text-base md:text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]"
+                className="h-16 rounded-full bg-[#3182f6] px-12 text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => setIsPostModalOpen(true)}
               >
                 모집글 올리기
@@ -633,7 +634,7 @@ export default function App() {
               <Button
                 variant="outline"
                 size="lg"
-                className="h-14 md:h-16 rounded-2xl md:rounded-full border-slate-200 bg-white px-8 md:px-12 text-base md:text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]"
+                className="h-16 rounded-full border-slate-200 bg-white px-12 text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => document.getElementById('posts-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 프로젝트 둘러보기
@@ -644,7 +645,12 @@ export default function App() {
       </section>
 
       {/* --- Main Content --- */}
-      <main id="posts-section" className="container mx-auto px-4 md:px-8 py-12 md:py-20">
+      <main id="posts-section" className="container mx-auto px-4 md:px-8 py-6 md:py-20">
+        {/* Mobile Compact Header */}
+        <div className="mb-6 md:hidden">
+          <h2 className="text-xl font-extrabold text-[#191f28] tracking-tight">공모전 모집</h2>
+          <p className="text-sm font-medium text-[#8b95a1] mt-1">함께할 팀원을 찾아보세요</p>
+        </div>
         {/* Segmented Control Tabs (Toss Style) */}
         <div className="mb-8 md:mb-12 flex justify-center md:justify-start">
           <div className="inline-flex items-center rounded-2xl bg-[#f2f4f6] p-1.5 md:bg-transparent md:p-0 md:gap-8 md:border-b md:border-slate-100 md:w-full">
