@@ -19,7 +19,7 @@
 }
 
 .card-toss {
-  @apply bg-white rounded-[32px] p-8 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100/50 hover:border-blue-100 hover:-translate-y-1;
+  @apply bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-8 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100/50 hover:border-blue-100 hover:-translate-y-1;
 }
 
 .btn-toss {

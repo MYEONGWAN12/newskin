@@ -4,12 +4,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Search, 
-  Plus, 
-  Calendar, 
-  User, 
-  ExternalLink, 
+import {
+  Search,
+  Plus,
+  Calendar,
+  User,
+  ExternalLink,
   Filter,
   Github,
   Code,
@@ -108,7 +108,7 @@ const CategoryIcon = ({ category }: { category: string }) => {
   }
 };
 
-const SkillBadge = ({ skill }: { skill: string; [key: string]: any }) => {
+const SkillBadge = ({ skill }: { skill: string;[key: string]: any }) => {
   const lowerSkill = skill.toLowerCase();
   if (lowerSkill.includes('react')) return <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-100">React</Badge>;
   if (lowerSkill.includes('next')) return <Badge variant="outline" className="bg-slate-900 text-white border-slate-800">Next.js</Badge>;
@@ -128,7 +128,7 @@ export default function App() {
   const [actionLoading, setActionLoading] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  
+
   // UI States
   const [activeTab, setActiveTab] = useState<'posts' | 'awards'>('posts');
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
@@ -210,7 +210,7 @@ export default function App() {
       .from('post_members')
       .select('post_id')
       .eq('user_id', userId);
-    
+
     if (joinData) setMyJoins(joinData.map(j => j.post_id));
   };
 
@@ -220,7 +220,7 @@ export default function App() {
       .select('*')
       .eq('id', userId)
       .single();
-    
+
     if (data) {
       setProfile(data);
       setProfileForm({
@@ -319,7 +319,7 @@ export default function App() {
         .delete()
         .eq('post_id', postId)
         .eq('user_id', user.id);
-      
+
       if (!error) {
         setMyJoins(prev => prev.filter(id => id !== postId));
         fetchPosts();
@@ -357,7 +357,7 @@ export default function App() {
       .from('post_members')
       .select('user:users(*)')
       .eq('post_id', postId);
-    
+
     if (data) {
       setParticipants(data.map((item: any) => item.user).filter(Boolean));
     }
@@ -460,8 +460,8 @@ export default function App() {
     const { error } = await supabase
       .from('posts')
       .insert([
-        { 
-          ...newPost, 
+        {
+          ...newPost,
           author_id: user.id,
           status: '모집 중'
         }
@@ -500,7 +500,7 @@ export default function App() {
               major: authForm.major
             }
           ]);
-        
+
         if (profileError) {
           console.error('Profile creation error:', profileError);
         }
@@ -526,7 +526,7 @@ export default function App() {
           major: '',
           isSignUp: false,
         });
-        
+
         // Execute pending action
         if (pendingAction) {
           if (pendingAction.type === 'join') {
@@ -546,8 +546,8 @@ export default function App() {
 
   const filteredPosts = posts.filter(post => {
     const matchesFilter = filter === '전체' || post.category === filter;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.content.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesMyPosts = !showMyPosts || post.author_id === user?.id;
     const matchesJoined = !showJoinedOnly || myJoins.includes(post.id);
     return matchesFilter && matchesSearch && matchesMyPosts && matchesJoined;
@@ -558,7 +558,7 @@ export default function App() {
       {/* --- Navbar --- */}
       <nav className="glass-nav">
         <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center"
@@ -569,7 +569,7 @@ export default function App() {
           <div className="flex items-center gap-2 md:gap-6">
             {user ? (
               <div className="flex items-center gap-2 md:gap-5">
-                <button 
+                <button
                   onClick={() => setIsProfileModalOpen(true)}
                   className="hidden flex-col items-end sm:flex hover:opacity-80 transition-opacity"
                 >
@@ -608,12 +608,12 @@ export default function App() {
               <Sparkles size={12} className="mr-1.5 inline" />
               대학교 동아리 매칭 플랫폼
             </Badge>
-            
+
             <h1 className="mb-6 md:mb-8 text-4xl md:text-[80px] font-extrabold tracking-[-0.04em] text-[#191f28] leading-[1.1] md:leading-[1.05]">
               함께 도전할 <br className="hidden md:block" />
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#3182f6]">최고의 동아리</span>
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ delay: 0.8, duration: 0.8 }}
@@ -621,25 +621,25 @@ export default function App() {
                 />
               </span>를 찾으세요.
             </h1>
-            
+
             <p className="mb-8 md:mb-12 mx-auto md:mx-0 max-w-xl text-base md:text-xl font-medium leading-relaxed text-[#4e5968]">
               교내외 공모전, 서포터즈 동료를 만나보세요. <br className="hidden md:block" />
               당신의 열정을 함께 나눌 파트너가 기다리고 있습니다.
             </p>
 
             <div className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start">
-              <Button 
-                size="lg" 
-                className="h-14 md:h-16 rounded-full bg-[#3182f6] px-8 md:px-12 text-base md:text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]" 
+              <Button
+                size="lg"
+                className="h-14 md:h-16 rounded-full bg-[#3182f6] px-8 md:px-12 text-base md:text-lg font-bold text-white shadow-2xl shadow-blue-100 transition-all hover:bg-[#1b64da] hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => setIsPostModalOpen(true)}
               >
                 모집글 올리기
                 <ArrowRight size={20} className="ml-2" />
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="h-14 md:h-16 rounded-full border-slate-200 bg-white px-8 md:px-12 text-base md:text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]" 
+              <Button
+                variant="outline"
+                size="lg"
+                className="h-14 md:h-16 rounded-full border-slate-200 bg-white px-8 md:px-12 text-base md:text-lg font-bold text-[#4e5968] transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => document.getElementById('posts-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 프로젝트 둘러보기
@@ -653,7 +653,7 @@ export default function App() {
       <main id="posts-section" className="container mx-auto px-4 md:px-8 py-12 md:py-20">
         {/* Tab Switcher */}
         <div className="mb-8 md:mb-12 flex items-center gap-6 md:gap-8 border-b border-slate-100 overflow-x-auto no-scrollbar">
-          <button 
+          <button
             onClick={() => setActiveTab('posts')}
             className={cn(
               "pb-3 md:pb-4 text-lg md:text-xl font-bold transition-all border-b-2 whitespace-nowrap",
@@ -662,7 +662,7 @@ export default function App() {
           >
             모집 게시판
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('awards')}
             className={cn(
               "pb-3 md:pb-4 text-lg md:text-xl font-bold transition-all border-b-2 whitespace-nowrap",
@@ -685,8 +685,8 @@ export default function App() {
                       onClick={() => setFilter(cat)}
                       className={cn(
                         "rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 whitespace-nowrap",
-                        filter === cat 
-                          ? "bg-[#191f28] text-white shadow-md shadow-slate-200" 
+                        filter === cat
+                          ? "bg-[#191f28] text-white shadow-md shadow-slate-200"
                           : "bg-white text-[#8b95a1] hover:bg-slate-50 border border-slate-100"
                       )}
                     >
@@ -736,9 +736,9 @@ export default function App() {
                 <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#3182f6] border-t-transparent"></div>
               </div>
             ) : (
-              <motion.div 
+              <motion.div
                 layout
-                className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+                className="grid gap-4 md:gap-8 sm:grid-cols-2 lg:grid-cols-3"
               >
                 <AnimatePresence mode="popLayout">
                   {filteredPosts.map((post) => (
@@ -750,24 +750,23 @@ export default function App() {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <div 
+                      <div
                         className="card-toss group flex h-full flex-col cursor-pointer relative"
                         onClick={() => {
                           setSelectedPost(post);
                           fetchParticipants(post.id);
                         }}
                       >
-                        <div className="mb-6 flex items-center justify-between gap-4">
-                          <div className="flex flex-wrap gap-2">
+                        <div className="mb-3 md:mb-6 flex items-center justify-between gap-4">
+                          <div className="flex flex-wrap gap-1.5 md:gap-2">
                             <Badge className={cn(
-                              "rounded-xl px-3 py-1 text-[10px] md:text-[11px] font-bold uppercase tracking-wider",
+                              "rounded-lg md:rounded-xl px-2.5 md:px-3 py-0.5 md:py-1 text-[10px] md:text-[11px] font-bold uppercase tracking-wider",
                               post.status === '모집 중' ? "bg-blue-50 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
                             )}>
                               {post.status}
                             </Badge>
-                            <Badge className="rounded-xl px-3 py-1 text-[10px] md:text-[11px] font-bold bg-blue-50 text-[#3182f6] border-none">
-                              <Users size={10} className="mr-1 md:hidden" />
-                              <Users size={12} className="mr-1 hidden md:block" />
+                            <Badge className="rounded-lg md:rounded-xl px-2.5 md:px-3 py-0.5 md:py-1 text-[10px] md:text-[11px] font-bold bg-blue-50 text-[#3182f6] border-none">
+                              <Users size={10} className="mr-1" />
                               {post.member_count}명
                             </Badge>
                           </div>
@@ -776,42 +775,43 @@ export default function App() {
                           </span>
                         </div>
 
-                        <h3 className="mb-4 text-xl md:text-2xl font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors flex items-center gap-2">
+                        <h3 className="mb-2 md:mb-4 text-base md:text-2xl font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors flex items-center gap-2 leading-snug">
                           {post.title}
-                          {post.member_count && post.member_count > 5 && <Star size={16} className="text-amber-400 fill-amber-400" />}
+                          {post.member_count && post.member_count > 5 && <Star size={14} className="text-amber-400 fill-amber-400 shrink-0" />}
                         </h3>
 
-                        <p className="mb-8 line-clamp-2 text-sm md:text-[15px] font-medium leading-relaxed text-[#4e5968]">
+                        <p className="mb-4 md:mb-8 line-clamp-2 text-[13px] md:text-[15px] font-medium leading-relaxed text-[#4e5968]">
                           {post.content}
                         </p>
 
-                        <div className="mb-8 flex flex-wrap gap-2">
-                          <Badge variant="outline" className="rounded-xl border-none bg-[#f2f4f6] px-3.5 py-1 text-xs text-[#4e5968] font-bold">
+                        <div className="mb-4 md:mb-8 flex flex-wrap gap-1.5 md:gap-2">
+                          <Badge variant="outline" className="rounded-lg md:rounded-xl border-none bg-[#f2f4f6] px-2.5 md:px-3.5 py-0.5 md:py-1 text-[11px] md:text-xs text-[#4e5968] font-bold">
                             <CategoryIcon category={post.category} />
                             {post.category}
                           </Badge>
-                          {['React', 'Next.js', 'TypeScript', 'Figma'].map(skill => 
+                          {['React', 'Next.js', 'TypeScript', 'Figma'].map(skill =>
                             post.content.toLowerCase().includes(skill.toLowerCase()) && (
                               <SkillBadge key={skill} skill={skill} />
                             )
                           )}
                         </div>
 
-                        <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 text-slate-400 border border-slate-100">
-                              <User size={16} />
+                        <div className="mt-auto flex items-center justify-between pt-4 md:pt-6 border-t border-slate-50">
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <div className="flex h-7 w-7 md:h-9 md:w-9 items-center justify-center rounded-full bg-slate-50 text-slate-400 border border-slate-100">
+                              <User size={14} className="md:hidden" />
+                              <User size={16} className="hidden md:block" />
                             </div>
                             <div className="flex flex-col">
-                              <span className="text-sm font-semibold text-[#191f28]">
+                              <span className="text-xs md:text-sm font-semibold text-[#191f28]">
                                 {post.author?.name || '익명'}
                               </span>
-                              <span className="text-[11px] font-medium text-[#8b95a1]">
+                              <span className="text-[10px] md:text-[11px] font-medium text-[#8b95a1]">
                                 {post.author?.major || '전공 미입력'}
                               </span>
                             </div>
                           </div>
-                          <div className="text-xs font-bold text-[#f04452]">
+                          <div className="text-[11px] md:text-xs font-bold text-[#f04452]">
                             마감: {format(new Date(post.deadline), 'MM/dd')}
                           </div>
                         </div>
@@ -826,7 +826,7 @@ export default function App() {
               <div className="flex h-96 flex-col items-center justify-center rounded-[40px] bg-white shadow-sm">
                 <Compass size={56} className="mb-6 text-[#e5e8eb]" />
                 <p className="text-xl font-bold text-[#8b95a1]">검색 결과가 없어요</p>
-                <Button variant="link" className="mt-4 text-[#3182f6] font-bold" onClick={() => {setFilter('전체'); setSearchQuery('');}}>필터 초기화하기</Button>
+                <Button variant="link" className="mt-4 text-[#3182f6] font-bold" onClick={() => { setFilter('전체'); setSearchQuery(''); }}>필터 초기화하기</Button>
               </div>
             )}
           </>
@@ -838,7 +838,7 @@ export default function App() {
                 <p className="mt-2 text-lg font-medium text-[#8b95a1]">우리가 함께 만들어온 빛나는 순간들입니다.</p>
               </div>
               {user && (
-                <Button 
+                <Button
                   onClick={() => setIsAwardModalOpen(true)}
                   className="bg-[#3182f6] hover:bg-[#1b64da] text-white rounded-2xl px-6 font-bold h-12"
                 >
@@ -896,21 +896,21 @@ export default function App() {
           <form onSubmit={handleCreatePost} className="space-y-8">
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">제목</label>
-              <input 
-                required 
-                placeholder="예) [해커톤] 프론트엔드 개발자 2분 모십니다" 
+              <input
+                required
+                placeholder="예) [해커톤] 프론트엔드 개발자 2분 모십니다"
                 className="input-toss"
                 value={newPost.title}
-                onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
               />
             </div>
             <div className="grid gap-8 sm:grid-cols-2">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">카테고리</label>
-                <select 
+                <select
                   className="input-toss appearance-none"
                   value={newPost.category}
-                  onChange={(e) => setNewPost({...newPost, category: e.target.value as any})}
+                  onChange={(e) => setNewPost({ ...newPost, category: e.target.value as any })}
                 >
                   {CATEGORIES.filter(c => c !== '전체').map(c => (
                     <option key={c} value={c}>{c}</option>
@@ -919,33 +919,33 @@ export default function App() {
               </div>
               <div className="space-y-3">
                 <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
-                <input 
-                  required 
-                  type="date" 
+                <input
+                  required
+                  type="date"
                   className="input-toss"
                   value={newPost.deadline}
-                  onChange={(e) => setNewPost({...newPost, deadline: e.target.value})}
+                  onChange={(e) => setNewPost({ ...newPost, deadline: e.target.value })}
                 />
               </div>
             </div>
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
-              <textarea 
-                required 
-                placeholder="프로젝트 소개와 필요한 기술 스택을 자유롭게 적어주세요." 
+              <textarea
+                required
+                placeholder="프로젝트 소개와 필요한 기술 스택을 자유롭게 적어주세요."
                 className="min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
                 value={newPost.content}
-                onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+                onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
               />
             </div>
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
-              <input 
-                required 
-                placeholder="오픈채팅방 링크, 이메일 등" 
+              <input
+                required
+                placeholder="오픈채팅방 링크, 이메일 등"
                 className="input-toss"
                 value={newPost.contact_link}
-                onChange={(e) => setNewPost({...newPost, contact_link: e.target.value})}
+                onChange={(e) => setNewPost({ ...newPost, contact_link: e.target.value })}
               />
             </div>
             <div className="flex justify-end gap-4 pt-4">
@@ -969,24 +969,24 @@ export default function App() {
                     <X size={24} className="hidden md:block" />
                   </Button>
                 </div>
-                
+
                 <div className="space-y-3">
                   <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">제목</label>
-                  <input 
-                    required 
+                  <input
+                    required
                     className="input-toss"
                     value={editPostData.title}
-                    onChange={(e) => setEditPostData({...editPostData, title: e.target.value})}
+                    onChange={(e) => setEditPostData({ ...editPostData, title: e.target.value })}
                   />
                 </div>
 
                 <div className="grid gap-8 sm:grid-cols-2">
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">카테고리</label>
-                    <select 
+                    <select
                       className="input-toss appearance-none"
                       value={editPostData.category}
-                      onChange={(e) => setEditPostData({...editPostData, category: e.target.value as any})}
+                      onChange={(e) => setEditPostData({ ...editPostData, category: e.target.value as any })}
                     >
                       {CATEGORIES.filter(c => c !== '전체').map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -995,33 +995,33 @@ export default function App() {
                   </div>
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">마감일</label>
-                    <input 
-                      required 
-                      type="date" 
+                    <input
+                      required
+                      type="date"
                       className="input-toss"
                       value={editPostData.deadline}
-                      onChange={(e) => setEditPostData({...editPostData, deadline: e.target.value})}
+                      onChange={(e) => setEditPostData({ ...editPostData, deadline: e.target.value })}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 내용</label>
-                  <textarea 
-                    required 
+                  <textarea
+                    required
                     className="min-h-[180px] w-full rounded-2xl border-none bg-[#f9fafb] p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
                     value={editPostData.content}
-                    onChange={(e) => setEditPostData({...editPostData, content: e.target.value})}
+                    onChange={(e) => setEditPostData({ ...editPostData, content: e.target.value })}
                   />
                 </div>
 
                 <div className="space-y-3">
                   <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">연락 방법</label>
-                  <input 
-                    required 
+                  <input
+                    required
                     className="input-toss"
                     value={editPostData.contact_link}
-                    onChange={(e) => setEditPostData({...editPostData, contact_link: e.target.value})}
+                    onChange={(e) => setEditPostData({ ...editPostData, contact_link: e.target.value })}
                   />
                 </div>
 
@@ -1047,9 +1047,9 @@ export default function App() {
                           {selectedPost.status}
                         </Badge>
                         {user?.id === selectedPost.author_id && (
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
+                          <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => {
                               setEditPostData({
                                 title: selectedPost.title,
@@ -1092,13 +1092,13 @@ export default function App() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <Button 
+                          <Button
                             onClick={() => handleJoinPost(selectedPost.id)}
                             disabled={actionLoading}
                             className={cn(
                               "h-14 md:h-16 w-full md:px-10 rounded-[24px] text-base md:text-lg font-bold shadow-2xl transition-all disabled:opacity-50",
-                              myJoins.includes(selectedPost.id) 
-                                ? "bg-slate-100 text-[#4e5968] hover:bg-slate-200 shadow-none" 
+                              myJoins.includes(selectedPost.id)
+                                ? "bg-slate-100 text-[#4e5968] hover:bg-slate-200 shadow-none"
                                 : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-blue-200"
                             )}
                           >
@@ -1118,7 +1118,7 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="rounded-2xl md:rounded-[32px] bg-[#f9fafb] p-4 md:p-6 border border-slate-50">
                     <div className="flex items-center gap-3 md:gap-4">
                       <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-white text-[#3182f6] shadow-sm">
@@ -1146,7 +1146,7 @@ export default function App() {
 
                   {/* Gemini AI Link Section */}
                   <div className="rounded-2xl bg-blue-50/30 p-4 md:p-6 border border-blue-100/50">
-                    <Button 
+                    <Button
                       onClick={handleAskAI}
                       className="w-full h-14 rounded-xl bg-white border border-blue-200 text-[#3182f6] font-bold hover:bg-blue-50 shadow-sm transition-all active:scale-[0.98]"
                     >
@@ -1190,15 +1190,15 @@ export default function App() {
                           .update({ status: newStatus })
                           .eq('id', selectedPost.id);
                         if (!error) {
-                          setSelectedPost({...selectedPost, status: newStatus as any});
+                          setSelectedPost({ ...selectedPost, status: newStatus as any });
                           fetchPosts();
                         }
                         setActionLoading(false);
                       }}>
                         {selectedPost.status === '모집 중' ? '모집 완료' : '다시 모집'}
                       </Button>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         onClick={() => handleDeletePost(selectedPost.id)}
                         className="h-12 w-12 rounded-xl border-none bg-rose-50 text-rose-500 hover:bg-rose-100 p-0"
                       >
@@ -1226,24 +1226,24 @@ export default function App() {
           <form onSubmit={handleUpdateProfile} className="space-y-5">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">이름</label>
-              <input 
-                required 
+              <input
+                required
                 className="input-toss"
                 value={profileForm.name}
-                onChange={(e) => setProfileForm({...profileForm, name: e.target.value})}
+                onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
               />
             </div>
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">학과</label>
-              <input 
-                required 
+              <input
+                required
                 className="input-toss"
                 value={profileForm.major}
-                onChange={(e) => setProfileForm({...profileForm, major: e.target.value})}
+                onChange={(e) => setProfileForm({ ...profileForm, major: e.target.value })}
               />
             </div>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={actionLoading}
               className="w-full h-16 rounded-2xl bg-[#3182f6] text-lg font-bold text-white hover:bg-[#1b64da] shadow-xl shadow-blue-100 mt-4 disabled:opacity-50"
             >
@@ -1256,7 +1256,7 @@ export default function App() {
       {/* Auth Modal */}
       <Modal isOpen={isAuthModalOpen} onClose={() => { setIsAuthModalOpen(false); setPendingAction(null); }} className="max-w-md rounded-3xl md:rounded-[40px] bg-white p-8 md:p-12">
         {authStatus === 'success' ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center py-10 text-center"
@@ -1272,10 +1272,6 @@ export default function App() {
         ) : (
           <div className="space-y-8 md:space-y-10">
             <div className="text-center">
-              <div className="mx-auto mb-4 md:mb-6 flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-[#3182f6] text-white shadow-xl shadow-blue-100">
-                <Layers size={24} className="md:hidden" />
-                <Layers size={32} className="hidden md:block" />
-              </div>
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#191f28]">
                 {pendingAction ? '로그인이 필요해요' : (authForm.isSignUp ? '반가워요!' : '다시 오셨네요!')}
               </h2>
@@ -1288,64 +1284,52 @@ export default function App() {
                 <>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">이름</label>
-                    <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
-                      <input 
-                        required 
-                        autoFocus
-                        placeholder="실명을 입력해주세요" 
-                        className="input-toss pl-12"
-                        value={authForm.name}
-                        onChange={(e) => setAuthForm({...authForm, name: e.target.value})}
-                      />
-                    </div>
+                    <input
+                      required
+                      autoFocus
+                      placeholder="실명을 입력해주세요"
+                      className="input-toss"
+                      value={authForm.name}
+                      onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">학과</label>
-                    <div className="relative">
-                      <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
-                      <input 
-                        required 
-                        placeholder="학과를 입력해주세요 (예: 컴퓨터공학과)" 
-                        className="input-toss pl-12"
-                        value={authForm.major}
-                        onChange={(e) => setAuthForm({...authForm, major: e.target.value})}
-                      />
-                    </div>
+                    <input
+                      required
+                      placeholder="학과를 입력해주세요 (예: 컴퓨터공학과)"
+                      className="input-toss"
+                      value={authForm.major}
+                      onChange={(e) => setAuthForm({ ...authForm, major: e.target.value })}
+                    />
                   </div>
                 </>
               )}
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">이메일</label>
-                <div className="relative">
-                  <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
-                  <input 
-                    required 
-                    type="email" 
-                    autoFocus={!authForm.isSignUp}
-                    placeholder="university@email.com" 
-                    className="input-toss pl-12"
-                    value={authForm.email}
-                    onChange={(e) => setAuthForm({...authForm, email: e.target.value})}
-                  />
-                </div>
+                <input
+                  required
+                  type="email"
+                  autoFocus={!authForm.isSignUp}
+                  placeholder="university@email.com"
+                  className="input-toss"
+                  value={authForm.email}
+                  onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-wider text-[#8b95a1]">비밀번호</label>
-                <div className="relative">
-                  <AlertCircle className="absolute left-4 top-1/2 -translate-y-1/2 text-[#adb5bd]" size={18} />
-                  <input 
-                    required 
-                    type="password" 
-                    placeholder="••••••••" 
-                    className="input-toss pl-12"
-                    value={authForm.password}
-                    onChange={(e) => setAuthForm({...authForm, password: e.target.value})}
-                  />
-                </div>
+                <input
+                  required
+                  type="password"
+                  placeholder="••••••••"
+                  className="input-toss"
+                  value={authForm.password}
+                  onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+                />
               </div>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={actionLoading}
                 className="w-full h-16 rounded-2xl bg-[#3182f6] text-lg font-bold text-white hover:bg-[#1b64da] shadow-xl shadow-blue-100 mt-4 disabled:opacity-50"
               >
@@ -1360,7 +1344,7 @@ export default function App() {
               <span className="text-[#8b95a1]">
                 {authForm.isSignUp ? '이미 계정이 있으신가요?' : "아직 계정이 없으신가요?"}
               </span>
-              <button 
+              <button
                 className="ml-2 text-[#3182f6] hover:underline"
                 onClick={() => setAuthForm({
                   email: '',
@@ -1387,32 +1371,32 @@ export default function App() {
           <form onSubmit={handleCreateAward} className="space-y-8">
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">수상 명칭</label>
-              <input 
-                required 
-                placeholder="예) 제 1회 대학생 연합 해커톤 대상" 
+              <input
+                required
+                placeholder="예) 제 1회 대학생 연합 해커톤 대상"
                 className="input-toss"
                 value={newAward.title}
-                onChange={(e) => setNewAward({...newAward, title: e.target.value})}
+                onChange={(e) => setNewAward({ ...newAward, title: e.target.value })}
               />
             </div>
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">수상 날짜</label>
-              <input 
-                required 
-                type="date" 
+              <input
+                required
+                type="date"
                 className="input-toss"
                 value={newAward.award_date}
-                onChange={(e) => setNewAward({...newAward, award_date: e.target.value})}
+                onChange={(e) => setNewAward({ ...newAward, award_date: e.target.value })}
               />
             </div>
             <div className="space-y-3">
               <label className="text-sm font-bold text-[#8b95a1] uppercase tracking-wider">상세 설명</label>
-              <textarea 
-                required 
-                placeholder="수상에 대한 자세한 설명을 적어주세요." 
+              <textarea
+                required
+                placeholder="수상에 대한 자세한 설명을 적어주세요."
                 className="min-h-[150px] w-full rounded-2xl border-none bg-[#f9fafb] p-5 text-base font-medium placeholder:text-[#adb5bd] focus:bg-[#f2f4f6] focus:outline-none focus:ring-2 focus:ring-[#3182f6]/10 transition-all"
                 value={newAward.description}
-                onChange={(e) => setNewAward({...newAward, description: e.target.value})}
+                onChange={(e) => setNewAward({ ...newAward, description: e.target.value })}
               />
             </div>
             <div className="flex justify-end gap-4 pt-4">
