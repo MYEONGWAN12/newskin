@@ -649,19 +649,7 @@ export default function App() {
       </section>
 
       {/* --- Main Content --- */}
-      <main id="posts-section" className="container mx-auto px-4 md:px-8 py-5 md:py-20">
-        {/* Mobile Compact Header */}
-        <div className="mb-5 md:hidden">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-[22px] font-extrabold text-[#191f28] tracking-tight">공모전 모집</h2>
-              <p className="text-[13px] font-medium text-[#8b95a1] mt-0.5">함께할 팀원을 찾아보세요</p>
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#3182f6]/[0.08] text-[#3182f6]">
-              <Compass size={20} />
-            </div>
-          </div>
-        </div>
+      <main id="posts-section" className="container mx-auto px-4 md:px-8 pt-3 pb-6 md:py-20">
         {/* Segmented Control Tabs (Toss Style) */}
         <div className="mb-8 md:mb-12 flex justify-center md:justify-start">
           <div className="inline-flex items-center rounded-2xl bg-[#f2f4f6] p-1.5 md:bg-transparent md:p-0 md:gap-8 md:border-b md:border-slate-100 md:w-full">
@@ -762,85 +750,102 @@ export default function App() {
                     const diff = new Date(post.deadline).getTime() - new Date().getTime();
                     const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
                     const isUrgent = post.status === '모집 중' && daysLeft >= 0 && daysLeft <= 3;
+                    const categoryEmoji = post.category === '교내' ? '🏠' : post.category === '교외' ? '🌍' : post.category === '서포터즈' ? '🏅' : '✨';
                     return (
                       <motion.div
                         key={post.id}
                         layout
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.4 }}
-                        whileHover={{ y: -4 }}
-                        whileTap={{ scale: 0.98 }}
+                        exit={{ opacity: 0, scale: 0.96 }}
+                        transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        whileHover={{ y: -3 }}
+                        whileTap={{ scale: 0.985 }}
                       >
                         <div
-                          className="card-toss group flex h-full flex-col cursor-pointer relative overflow-hidden"
+                          className="group relative flex h-full flex-col cursor-pointer overflow-hidden rounded-[22px] md:rounded-[24px] bg-white p-5 md:p-6 transition-all duration-300 border border-black/[0.04] hover:border-[#3182f6]/15 hover:shadow-[0_8px_30px_rgba(49,130,246,0.08)]"
+                          style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.015)' }}
                           onClick={() => {
                             setSelectedPost(post);
                             fetchParticipants(post.id);
                           }}
                         >
-                          {/* ── Top: Status + Deadline ── */}
-                          <div className="mb-4 md:mb-5 flex items-center justify-between">
+                          {/* Accent line */}
+                          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#3182f6]/0 via-[#3182f6]/20 to-[#3182f6]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                          {/* Top Row */}
+                          <div className="mb-3.5 flex items-center justify-between">
                             <div className="flex items-center gap-1.5">
-                              <Badge className={cn(
-                                "rounded-full px-2.5 py-0.5 text-[10px] font-bold border-none",
-                                post.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6]" : "bg-[#f2f4f6] text-[#8b95a1]"
+                              <span className="text-sm">{categoryEmoji}</span>
+                              <span className="text-[11px] font-semibold text-[#6b7684]">{post.category}</span>
+                              <span className="text-[#e5e8eb] text-[10px]">·</span>
+                              <span className="text-[10px] font-medium text-[#b0b8c1]">
+                                {format(new Date(post.created_at), 'M월 d일')}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              {isUrgent && (
+                                <span className="inline-flex items-center gap-0.5 rounded-full bg-[#ff6b6b]/8 px-2 py-0.5 text-[10px] font-bold text-[#f04452]">
+                                  🔥 D-{daysLeft}
+                                </span>
+                              )}
+                              <span className={cn(
+                                "rounded-full px-2 py-0.5 text-[10px] font-bold",
+                                post.status === '모집 중'
+                                  ? "bg-[#e8f3ff] text-[#3182f6]"
+                                  : "bg-[#f2f4f6] text-[#8b95a1]"
                               )}>
                                 {post.status}
-                              </Badge>
-                              {isUrgent && (
-                                <Badge className="rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-[#f04452]/10 text-[#f04452] border-none animate-pulse">
-                                  🔥 D-{daysLeft}
-                                </Badge>
-                              )}
+                              </span>
                             </div>
-                            <span className="text-[10px] font-medium text-[#b0b8c1]">
-                              {format(new Date(post.created_at), 'MM.dd')}
-                            </span>
                           </div>
 
-                          {/* ── Title ── */}
-                          <h3 className="mb-2 md:mb-3 text-[15px] md:text-lg font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors leading-snug line-clamp-2">
+                          {/* Title */}
+                          <h3 className="mb-1.5 text-[15px] md:text-[17px] font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors leading-[1.4] line-clamp-2">
                             {post.title}
                           </h3>
 
-                          {/* ── Content Preview ── */}
-                          <p className="mb-4 md:mb-5 line-clamp-2 text-[13px] md:text-sm font-medium leading-relaxed text-[#6b7684]">
+                          {/* Content */}
+                          <p className="mb-4 line-clamp-2 text-[13px] font-medium leading-[1.7] text-[#8b95a1]">
                             {post.content}
                           </p>
 
-                          {/* ── Tags ── */}
-                          <div className="mb-4 md:mb-5 flex flex-wrap gap-1.5">
-                            <span className="inline-flex items-center rounded-lg bg-[#f2f4f6] px-2.5 py-1 text-[11px] text-[#4e5968] font-semibold">
-                              <CategoryIcon category={post.category} />
-                              {post.category}
-                            </span>
-                            {['React', 'Next.js', 'TypeScript', 'Figma'].map(skill =>
-                              post.content.toLowerCase().includes(skill.toLowerCase()) && (
-                                <span key={skill} className="inline-flex items-center rounded-lg bg-[#f2f4f6] px-2.5 py-1 text-[11px] text-[#6b7684] font-medium">
-                                  {skill}
-                                </span>
-                              )
-                            )}
-                          </div>
-
-                          {/* ── Footer: Author + Deadline ── */}
-                          <div className="mt-auto flex items-center justify-between pt-4 border-t border-[#f2f4f6]">
-                            <div className="flex items-center gap-2">
-                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#3182f6]/20 to-[#3182f6]/5 text-[#3182f6]">
-                                <User size={12} />
+                          {/* Skill Tags */}
+                          {(() => {
+                            const skills = ['React', 'Next.js', 'TypeScript', 'Figma', 'Python', 'Node.js'].filter(s => post.content.toLowerCase().includes(s.toLowerCase()));
+                            return skills.length > 0 && (
+                              <div className="mb-4 flex flex-wrap gap-1.5">
+                                {skills.map(skill => (
+                                  <span key={skill} className="rounded-full bg-[#f2f4f6] px-2.5 py-[3px] text-[10px] font-semibold text-[#6b7684]">
+                                    {skill}
+                                  </span>
+                                ))}
                               </div>
-                              <span className="text-xs font-semibold text-[#333d4b]">
+                            );
+                          })()}
+
+                          {/* Footer */}
+                          <div className="mt-auto flex items-center justify-between pt-3.5 border-t border-[#f2f4f6]">
+                            <div className="flex items-center gap-2">
+                              <div className="relative">
+                                <div className="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-gradient-to-br from-[#e8f3ff] to-[#d4e8ff] text-[#3182f6]">
+                                  <User size={11} />
+                                </div>
+                                <div className="absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#06d6a0] ring-2 ring-white" />
+                              </div>
+                              <span className="text-[12px] font-semibold text-[#333d4b]">
                                 {post.author?.name || '익명'}
                               </span>
-                              <span className="text-[10px] font-medium text-[#b0b8c1]">
-                                {post.author?.major || ''}
-                              </span>
                             </div>
-                            <div className="flex items-center gap-1.5">
-                              <Users size={12} className="text-[#b0b8c1]" />
-                              <span className="text-[11px] font-bold text-[#8b95a1]">{post.member_count || 0}</span>
+                            <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-1">
+                                <Calendar size={11} className="text-[#b0b8c1]" />
+                                <span className="text-[10px] font-semibold text-[#8b95a1]">{format(new Date(post.deadline), 'M/d')}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Users size={11} className="text-[#b0b8c1]" />
+                                <span className="text-[10px] font-bold text-[#8b95a1]">{post.member_count || 0}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
