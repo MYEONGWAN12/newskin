@@ -70,7 +70,7 @@ interface Post {
   id: string;
   author_id: string;
   title: string;
-  category: '기획' | '디자인' | '개발' | '기타';
+  category: '교내' | '교외' | '서포터즈' | '기타';
   content: string;
   deadline: string;
   contact_link: string;
@@ -101,9 +101,9 @@ interface Comment {
 
 const CategoryIcon = ({ category }: { category: string }) => {
   switch (category) {
-    case '기획': return <Lightbulb size={14} className="mr-1.5" />;
-    case '디자인': return <Palette size={14} className="mr-1.5" />;
-    case '개발': return <Code size={14} className="mr-1.5" />;
+    case '교내': return <Home size={14} className="mr-1.5" />;
+    case '교외': return <Globe size={14} className="mr-1.5" />;
+    case '서포터즈': return <Briefcase size={14} className="mr-1.5" />;
     default: return <MoreHorizontal size={14} className="mr-1.5" />;
   }
 };
@@ -117,7 +117,7 @@ const SkillBadge = ({ skill }: { skill: string;[key: string]: any }) => {
   return <Badge variant="outline" className="bg-slate-50 border-slate-100 text-slate-600">{skill}</Badge>;
 };
 
-const CATEGORIES = ['전체', '기획', '디자인', '개발', '기타'];
+const CATEGORIES = ['전체', '교내', '교외', '서포터즈', '기타'];
 
 export default function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -471,7 +471,7 @@ export default function App() {
       alert('글 작성에 실패했습니다: ' + error.message);
     } else {
       setIsPostModalOpen(false);
-      setNewPost({ title: '', category: '기획', content: '', deadline: '', contact_link: '' });
+      setNewPost({ title: '', category: '교내', content: '', deadline: '', contact_link: '' });
       fetchPosts();
     }
     setActionLoading(false);
