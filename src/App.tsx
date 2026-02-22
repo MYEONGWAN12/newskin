@@ -1035,14 +1035,14 @@ export default function App() {
               </form>
             ) : (
               <>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-6 md:gap-8">
                   {/* Header with Badges and Action Button */}
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-6">
                     <div className="flex items-center justify-between">
                       <div className="flex gap-2">
                         <Badge className={cn(
-                          "rounded-xl px-4 py-1.5 text-xs font-bold uppercase tracking-wider",
-                          selectedPost.status === '모집 중' ? "bg-blue-50 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
+                          "rounded-xl px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest",
+                          selectedPost.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
                         )}>
                           {selectedPost.status}
                         </Badge>
@@ -1060,34 +1060,35 @@ export default function App() {
                               });
                               setIsEditingPost(true);
                             }}
-                            className="rounded-xl h-8 px-3 text-[#3182f6] hover:bg-blue-50 font-bold"
+                            className="rounded-xl h-7 px-3 text-[#3182f6] hover:bg-blue-50 font-bold text-[10px] md:text-xs"
                           >
-                            <Pencil size={14} className="mr-1.5" />
-                            수정
+                            <Pencil size={12} className="mr-1.5" />
+                            수정하기
                           </Button>
                         )}
                       </div>
-                      <span className="text-[11px] md:text-sm font-bold text-[#adb5bd] uppercase tracking-widest">
+                      <span className="text-[10px] md:text-xs font-bold text-[#adb5bd] uppercase tracking-widest">
                         {format(new Date(selectedPost.created_at), 'yyyy.MM.dd')}
                       </span>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                       <div className="flex-1">
-                        <h2 className="mb-4 text-2xl md:text-4xl font-bold tracking-tight text-[#191f28] leading-tight">{selectedPost.title}</h2>
+                        <h2 className="mb-4 text-3xl md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.15]">{selectedPost.title}</h2>
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline" className="rounded-xl border-none bg-[#f2f4f6] px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm text-[#4e5968] font-bold">
+                          <Badge variant="outline" className="rounded-xl border-none bg-[#f2f4f6] px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-[#4e5968] font-bold">
                             <CategoryIcon category={selectedPost.category} />
-                            {selectedPost.category}
+                            <span className="ml-1.5">{selectedPost.category}</span>
                           </Badge>
-                          <Badge variant="outline" className="rounded-xl border-none bg-rose-50 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm text-[#f04452] font-bold">
+                          <Badge variant="outline" className="rounded-xl border-none bg-rose-50 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-[#f04452] font-bold">
+                            <Calendar size={14} className="mr-1.5" />
                             마감: {format(new Date(selectedPost.deadline), 'MM월 dd일')}
                           </Badge>
                         </div>
                       </div>
 
-                      {/* Immediate Action Button - Moved up for visibility */}
-                      <div className="w-full md:w-auto">
+                      {/* Immediate Action Button */}
+                      <div className="w-full md:w-auto md:shrink-0">
                         <motion.div
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -1096,20 +1097,20 @@ export default function App() {
                             onClick={() => handleJoinPost(selectedPost.id)}
                             disabled={actionLoading}
                             className={cn(
-                              "h-14 md:h-16 w-full md:px-10 rounded-[24px] text-base md:text-lg font-bold shadow-2xl transition-all disabled:opacity-50",
+                              "h-14 md:h-20 w-full md:px-12 rounded-[24px] md:rounded-[32px] text-base md:text-xl font-bold transition-all disabled:opacity-50",
                               myJoins.includes(selectedPost.id)
                                 ? "bg-slate-100 text-[#4e5968] hover:bg-slate-200 shadow-none"
-                                : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-blue-200"
+                                : "bg-[#3182f6] text-white hover:bg-[#1b64da] shadow-[0_12px_24px_rgba(49,130,246,0.3)]"
                             )}
                           >
                             {actionLoading ? (
-                              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
+                              <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
                             ) : (
                               <>
                                 {myJoins.includes(selectedPost.id) ? (
                                   <>참가 취소</>
                                 ) : (
-                                  <><Zap size={18} className="mr-2 fill-current" />참가 신청 ({selectedPost.member_count || 0}명)</>
+                                  <><Zap size={20} className="mr-2 fill-current" />참가 신청 ({selectedPost.member_count || 0}명)</>
                                 )}
                               </>
                             )}
@@ -1119,18 +1120,18 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="rounded-2xl md:rounded-[32px] bg-[#f9fafb] p-4 md:p-6 border border-slate-50">
-                    <div className="flex items-center gap-3 md:gap-4">
-                      <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-white text-[#3182f6] shadow-sm">
-                        <User size={20} className="md:hidden" />
-                        <User size={28} className="hidden md:block" />
+                  <div className="card-toss !bg-[#f9fafb] !p-6 border-none">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl bg-white text-[#3182f6] shadow-sm ring-1 ring-slate-100">
+                        <User size={24} className="md:hidden" />
+                        <User size={32} className="hidden md:block" />
                       </div>
                       <div>
-                        <div className="text-base md:text-xl font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
-                        <div className="text-[10px] md:text-sm font-bold text-[#8b95a1] uppercase tracking-widest">{selectedPost.author?.major || '전공 미입력'}</div>
+                        <div className="text-lg md:text-2xl font-extrabold text-[#191f28] tracking-tight">{selectedPost.author?.name || '익명'}</div>
+                        <div className="text-xs md:text-sm font-bold text-[#8b95a1] tracking-wide mt-0.5">{selectedPost.author?.major || '전공 미입력'}</div>
                       </div>
                       {selectedPost.author?.github_url && (
-                        <a href={selectedPost.author.github_url} target="_blank" rel="noreferrer" className="ml-auto flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-white text-[#adb5bd] hover:text-[#191f28] transition-all shadow-sm">
+                        <a href={selectedPost.author.github_url} target="_blank" rel="noreferrer" className="ml-auto flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-white text-[#adb5bd] hover:text-[#191f28] transition-all shadow-sm ring-1 ring-slate-100">
                           <Github size={20} className="md:hidden" />
                           <Github size={24} className="hidden md:block" />
                         </a>
@@ -1138,21 +1139,31 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="prose prose-slate max-w-none">
-                    <p className="whitespace-pre-wrap text-base md:text-lg font-medium leading-relaxed text-[#4e5968]">
+                  <div className="prose prose-slate max-w-none px-1">
+                    <p className="whitespace-pre-wrap text-base md:text-xl font-medium leading-relaxed text-[#4e5968] tracking-tight">
                       {selectedPost.content}
                     </p>
                   </div>
 
                   {/* Gemini AI Link Section */}
-                  <div className="rounded-2xl bg-blue-50/30 p-4 md:p-6 border border-blue-100/50">
-                    <Button
-                      onClick={handleAskAI}
-                      className="w-full h-14 rounded-xl bg-white border border-blue-200 text-[#3182f6] font-bold hover:bg-blue-50 shadow-sm transition-all active:scale-[0.98]"
-                    >
-                      AI에게 이 공모전 물어보기 (Gemini)
-                    </Button>
-                  </div>
+                  <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    className="rounded-[32px] bg-gradient-to-br from-blue-50 to-indigo-50/50 p-6 md:p-8 border border-blue-100/50 shadow-sm"
+                  >
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="text-center md:text-left">
+                        <h4 className="text-lg md:text-xl font-extrabold text-[#191f28] mb-1">궁금한 점이 있나요?</h4>
+                        <p className="text-sm md:text-base font-medium text-[#4e5968]">AI 동반자 Gemini가 공모전 상세 내용을 정리해드립니다.</p>
+                      </div>
+                      <Button
+                        onClick={handleAskAI}
+                        className="h-14 px-8 rounded-2xl bg-white text-[#3182f6] font-bold hover:bg-white shadow-sm ring-1 ring-blue-100 transition-all hover:ring-blue-200 active:scale-[0.98] whitespace-nowrap"
+                      >
+                        <Sparkles size={18} className="mr-2" />
+                        Gemini에게 물어보기
+                      </Button>
+                    </div>
+                  </motion.div>
 
                   {/* Participants Section */}
                   <div className="pt-8 border-t border-slate-100">
