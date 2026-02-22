@@ -16,7 +16,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-2 sm:p-4 backdrop-blur-sm">
       <div
         className={cn(
-          "relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-3xl bg-white p-5 sm:p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-200",
+          "relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-3xl bg-white p-4 sm:p-7 shadow-2xl animate-in fade-in zoom-in-95 duration-200",
           className
         )}
       >

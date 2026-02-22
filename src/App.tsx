@@ -1042,17 +1042,17 @@ export default function App() {
               </form>
             ) : (
               <>
-                <div className="flex flex-col gap-4 md:gap-10">
+                <div className="flex flex-col gap-3 md:gap-8">
                   {/* ── Mobile-First Header ── */}
                   {/* Top Bar: Author + Date + Edit */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#f2f4f6] text-[#3182f6]">
-                        <User size={16} className="md:hidden" />
+                      <div className="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#f2f4f6] text-[#3182f6]">
+                        <User size={14} className="md:hidden" />
                         <User size={22} className="hidden md:block" />
                       </div>
                       <div>
-                        <div className="text-[13px] md:text-base font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
+                        <div className="text-[12px] md:text-base font-bold text-[#191f28]">{selectedPost.author?.name || '익명'}</div>
                         <div className="text-[11px] md:text-xs font-medium text-[#8b95a1]">
                           {selectedPost.author?.major || '전공 미입력'} · {format(new Date(selectedPost.created_at), 'MM월 dd일')}
                         </div>
@@ -1088,39 +1088,39 @@ export default function App() {
 
                   {/* Title */}
                   <div>
-                    <h2 className="text-[20px] md:text-5xl font-extrabold tracking-tight text-[#191f28] leading-[1.3] md:leading-[1.15]">{selectedPost.title}</h2>
+                    <h2 className="text-[18px] md:text-5xl font-[900] tracking-tight text-[#191f28] leading-[1.3] md:leading-[1.15]">{selectedPost.title}</h2>
                   </div>
 
                   {/* ── Stats Row ── */}
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge className={cn(
-                      "rounded-full px-3 py-1 text-[10px] md:text-xs font-extrabold",
+                      "rounded-full px-2.5 py-0.5 text-[9.5px] md:text-xs font-extrabold",
                       selectedPost.status === '모집 중'
                         ? "bg-[#3182f6] text-white border-none shadow-sm"
                         : "bg-slate-100 text-[#8b95a1] border-none"
                     )}>
                       {selectedPost.status}
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-3 py-1 text-[10px] md:text-xs text-[#4e5968] font-bold">
+                    <Badge variant="outline" className="rounded-full border-none bg-[#f2f4f6] px-2.5 py-0.5 text-[9.5px] md:text-xs text-[#4e5968] font-bold">
                       <CategoryIcon category={selectedPost.category} />
-                      <span className="ml-1.5">{selectedPost.category}</span>
+                      <span className="ml-1">{selectedPost.category}</span>
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-3 py-1 text-[10px] md:text-xs text-[#f04452] font-extrabold ring-1 ring-rose-100">
-                      <Calendar size={11} className="mr-1.5" />
+                    <Badge variant="outline" className="rounded-full border-none bg-rose-50 px-2.5 py-0.5 text-[9.5px] md:text-xs text-[#f04452] font-extrabold ring-1 ring-rose-100">
+                      <Calendar size={10} className="mr-1" />
                       {format(new Date(selectedPost.deadline), 'MM/dd')} 마감
                     </Badge>
-                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-3 py-1 text-[10px] md:text-xs text-[#3182f6] font-extrabold ring-1 ring-blue-100">
-                      <Users size={11} className="mr-1.5" />
-                      {selectedPost.member_count || 0}명 참가 중
+                    <Badge variant="outline" className="rounded-full border-none bg-blue-50 px-2.5 py-0.5 text-[9.5px] md:text-xs text-[#3182f6] font-extrabold ring-1 ring-blue-100">
+                      <Users size={10} className="mr-1" />
+                      {selectedPost.member_count || 0}명 참가
                     </Badge>
                   </div>
 
                   {/* ── Participants (Moved Above Content) ── */}
-                  <div className="bg-[#f2f4f6]/30 rounded-2xl p-3 md:p-4 border border-black/[0.02]">
-                    <div className="mb-2.5 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[12px] md:text-sm font-bold text-[#191f28]">참가자</span>
-                        <span className="inline-flex items-center justify-center bg-[#3182f6] text-white text-[10px] h-4 min-w-[16px] px-1 rounded-full font-bold">{participants.length}</span>
+                  <div className="bg-[#f2f4f6]/30 rounded-2xl p-2.5 md:p-4 border border-black/[0.02]">
+                    <div className="mb-2 flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        <span className="text-[11px] md:text-sm font-bold text-[#191f28]">참가자</span>
+                        <span className="inline-flex items-center justify-center bg-[#3182f6] text-white text-[9px] h-3.5 min-w-[14px] px-1 rounded-full font-bold">{participants.length}</span>
                       </div>
                       <span className="text-[10px] font-medium text-[#b0b8c1]">모집 중</span>
                     </div>
@@ -1150,8 +1150,8 @@ export default function App() {
                   </div>
 
                   {/* ── Content ── */}
-                  <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-3.5 md:p-6">
-                    <p className="whitespace-pre-wrap text-[13px] md:text-lg font-medium leading-[1.7] text-[#4e5968]">
+                  <div className="rounded-2xl md:rounded-3xl bg-[#f9fafb] p-3 md:p-6">
+                    <p className="whitespace-pre-wrap text-[12.5px] md:text-lg font-medium leading-[1.65] text-[#4e5968]">
                       {selectedPost.content}
                     </p>
                   </div>
@@ -1227,14 +1227,14 @@ export default function App() {
                   {/* ── AI Assistant ── */}
                   <button
                     onClick={handleAskAI}
-                    className="flex items-center gap-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 p-3.5 md:p-5 border border-blue-100/50 w-full text-left transition-all active:scale-[0.99] hover:shadow-sm"
+                    className="flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 p-2.5 md:p-5 border border-blue-100/50 w-full text-left transition-all active:scale-[0.99] hover:shadow-sm"
                   >
-                    <div className="flex h-9 w-9 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
-                      <Sparkles size={18} className="text-[#3182f6]" />
+                    <div className="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
+                      <Sparkles size={16} className="text-[#3182f6]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm md:text-base font-bold text-[#191f28]">Gemini에게 물어보기</div>
-                      <div className="text-[12px] md:text-sm font-medium text-[#8b95a1] truncate">AI가 이 공모전의 핵심을 요약해 드립니다</div>
+                      <div className="text-[12.5px] md:text-base font-bold text-[#191f28]">Gemini에게 물어보기</div>
+                      <div className="text-[11px] md:text-sm font-medium text-[#8b95a1] truncate">AI가 이 공모전 핵심을 요약해 드립니다</div>
                     </div>
                     <ArrowRight size={16} className="text-[#adb5bd] shrink-0" />
                   </button>
