@@ -557,37 +557,41 @@ export default function App() {
     <div className="min-h-screen font-sans selection:bg-blue-100 selection:text-blue-900">
       {/* --- Navbar --- */}
       <nav className="glass-nav">
-        <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-8">
+        <div className="container mx-auto flex h-14 md:h-[72px] items-center justify-between px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center"
+            className="flex items-center gap-2"
           >
-            <span className="text-xl md:text-2xl font-bold tracking-[-0.03em] text-[#191f28]">PINSKIN</span>
+            <div className="h-7 w-7 md:h-8 md:w-8 rounded-lg bg-[#3182f6] flex items-center justify-center">
+              <span className="text-white text-sm md:text-base font-extrabold">P</span>
+            </div>
+            <span className="text-lg md:text-xl font-extrabold tracking-[-0.03em] text-[#191f28]">PINSKIN</span>
           </motion.div>
 
-          <div className="flex items-center gap-2 md:gap-6">
+          <div className="flex items-center gap-2 md:gap-4">
             {user ? (
-              <div className="flex items-center gap-2 md:gap-5">
+              <div className="flex items-center gap-2 md:gap-4">
                 <button
                   onClick={() => setIsProfileModalOpen(true)}
-                  className="hidden flex-col items-end sm:flex hover:opacity-80 transition-opacity"
+                  className="hidden items-center gap-3 sm:flex px-4 py-2 rounded-2xl hover:bg-[#f2f4f6] transition-colors"
                 >
-                  <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-[#8b95a1]">반가워요</span>
-                  <span className="text-xs md:text-sm font-bold text-[#191f28]">{profile?.name || user.email.split('@')[0]}님</span>
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#3182f6] to-[#1b64da] flex items-center justify-center text-white text-xs font-bold">
+                    {(profile?.name || user.email)[0].toUpperCase()}
+                  </div>
+                  <span className="text-sm font-bold text-[#191f28]">{profile?.name || user.email.split('@')[0]}</span>
                 </button>
-                <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="sm" onClick={() => setIsProfileModalOpen(true)} className="text-[#4e5968] hover:bg-slate-50 rounded-xl px-2">
-                    <Settings size={16} />
+                <div className="flex items-center gap-0.5">
+                  <Button variant="ghost" size="sm" onClick={() => setIsProfileModalOpen(true)} className="text-[#8b95a1] hover:text-[#191f28] hover:bg-[#f2f4f6] rounded-xl h-9 w-9 p-0 sm:hidden">
+                    <User size={18} />
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-[#4e5968] hover:bg-slate-50 rounded-xl px-2 md:px-3">
-                    <LogOut size={16} className="md:mr-2" />
-                    <span className="hidden md:inline">로그아웃</span>
+                  <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-[#8b95a1] hover:text-[#191f28] hover:bg-[#f2f4f6] rounded-xl h-9 w-9 p-0">
+                    <LogOut size={18} />
                   </Button>
                 </div>
               </div>
             ) : (
-              <Button size="sm" onClick={() => setIsAuthModalOpen(true)} className="bg-[#3182f6] hover:bg-[#1b64da] text-white rounded-xl md:rounded-2xl px-4 md:px-6 font-bold h-10 md:h-12 text-sm md:text-base">
+              <Button size="sm" onClick={() => setIsAuthModalOpen(true)} className="bg-[#191f28] hover:bg-[#333d4b] text-white rounded-xl px-5 font-bold h-10 text-sm shadow-none">
                 시작하기
               </Button>
             )}
@@ -645,11 +649,18 @@ export default function App() {
       </section>
 
       {/* --- Main Content --- */}
-      <main id="posts-section" className="container mx-auto px-4 md:px-8 py-6 md:py-20">
+      <main id="posts-section" className="container mx-auto px-4 md:px-8 py-5 md:py-20">
         {/* Mobile Compact Header */}
-        <div className="mb-6 md:hidden">
-          <h2 className="text-xl font-extrabold text-[#191f28] tracking-tight">공모전 모집</h2>
-          <p className="text-sm font-medium text-[#8b95a1] mt-1">함께할 팀원을 찾아보세요</p>
+        <div className="mb-5 md:hidden">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-[22px] font-extrabold text-[#191f28] tracking-tight">공모전 모집</h2>
+              <p className="text-[13px] font-medium text-[#8b95a1] mt-0.5">함께할 팀원을 찾아보세요</p>
+            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#3182f6]/[0.08] text-[#3182f6]">
+              <Compass size={20} />
+            </div>
+          </div>
         </div>
         {/* Segmented Control Tabs (Toss Style) */}
         <div className="mb-8 md:mb-12 flex justify-center md:justify-start">
@@ -747,98 +758,95 @@ export default function App() {
                 className="grid gap-4 md:gap-8 sm:grid-cols-2 lg:grid-cols-3"
               >
                 <AnimatePresence mode="popLayout">
-                  {filteredPosts.map((post) => (
-                    <motion.div
-                      key={post.id}
-                      layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      whileHover={{ y: -4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div
-                        className="card-toss group flex h-full flex-col cursor-pointer relative overflow-hidden"
-                        onClick={() => {
-                          setSelectedPost(post);
-                          fetchParticipants(post.id);
-                        }}
+                  {filteredPosts.map((post) => {
+                    const diff = new Date(post.deadline).getTime() - new Date().getTime();
+                    const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                    const isUrgent = post.status === '모집 중' && daysLeft >= 0 && daysLeft <= 3;
+                    return (
+                      <motion.div
+                        key={post.id}
+                        layout
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.4 }}
+                        whileHover={{ y: -4 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        {/* Urgent Tag Logic */}
-                        {(() => {
-                          const diff = new Date(post.deadline).getTime() - new Date().getTime();
-                          const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-                          if (post.status === '모집 중' && daysLeft >= 0 && daysLeft <= 3) {
-                            return (
-                              <div className="absolute -right-12 top-6 rotate-45 bg-[#f04452] px-12 py-1 text-[10px] font-bold text-white shadow-sm z-10">
-                                마감 임박 🔥
-                              </div>
-                            );
-                          }
-                          return null;
-                        })()}
-                        <div className="mb-3 md:mb-6 flex items-center justify-between gap-4">
-                          <div className="flex flex-wrap gap-1.5 md:gap-2">
-                            <Badge className={cn(
-                              "rounded-lg md:rounded-xl px-2.5 md:px-3 py-0.5 md:py-1 text-[10px] md:text-[11px] font-bold uppercase tracking-wider",
-                              post.status === '모집 중' ? "bg-blue-50 text-[#3182f6] border-none" : "bg-slate-100 text-[#8b95a1] border-none"
-                            )}>
-                              {post.status}
-                            </Badge>
-                            <Badge className="rounded-lg md:rounded-xl px-2.5 md:px-3 py-0.5 md:py-1 text-[10px] md:text-[11px] font-bold bg-blue-50 text-[#3182f6] border-none">
-                              <Users size={10} className="mr-1" />
-                              {post.member_count}명
-                            </Badge>
-                          </div>
-                          <span className="shrink-0 text-[10px] md:text-xs font-bold text-[#adb5bd] uppercase tracking-wider">
-                            {format(new Date(post.created_at), 'yyyy.MM.dd')}
-                          </span>
-                        </div>
-
-                        <h3 className="mb-2 md:mb-4 text-base md:text-2xl font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors flex items-center gap-2 leading-snug">
-                          {post.title}
-                          {post.member_count && post.member_count > 5 && <Star size={14} className="text-amber-400 fill-amber-400 shrink-0" />}
-                        </h3>
-
-                        <p className="mb-4 md:mb-8 line-clamp-2 text-[13px] md:text-[15px] font-medium leading-relaxed text-[#4e5968]">
-                          {post.content}
-                        </p>
-
-                        <div className="mb-4 md:mb-8 flex flex-wrap gap-1.5 md:gap-2">
-                          <Badge variant="outline" className="rounded-lg md:rounded-xl border-none bg-[#f2f4f6] px-2.5 md:px-3.5 py-0.5 md:py-1 text-[11px] md:text-xs text-[#4e5968] font-bold">
-                            <CategoryIcon category={post.category} />
-                            {post.category}
-                          </Badge>
-                          {['React', 'Next.js', 'TypeScript', 'Figma'].map(skill =>
-                            post.content.toLowerCase().includes(skill.toLowerCase()) && (
-                              <SkillBadge key={skill} skill={skill} />
-                            )
-                          )}
-                        </div>
-
-                        <div className="mt-auto flex items-center justify-between pt-4 md:pt-6 border-t border-slate-50">
-                          <div className="flex items-center gap-2 md:gap-3">
-                            <div className="flex h-7 w-7 md:h-9 md:w-9 items-center justify-center rounded-full bg-slate-50 text-slate-400 border border-slate-100">
-                              <User size={14} className="md:hidden" />
-                              <User size={16} className="hidden md:block" />
+                        <div
+                          className="card-toss group flex h-full flex-col cursor-pointer relative overflow-hidden"
+                          onClick={() => {
+                            setSelectedPost(post);
+                            fetchParticipants(post.id);
+                          }}
+                        >
+                          {/* ── Top: Status + Deadline ── */}
+                          <div className="mb-4 md:mb-5 flex items-center justify-between">
+                            <div className="flex items-center gap-1.5">
+                              <Badge className={cn(
+                                "rounded-full px-2.5 py-0.5 text-[10px] font-bold border-none",
+                                post.status === '모집 중' ? "bg-[#3182f6]/10 text-[#3182f6]" : "bg-[#f2f4f6] text-[#8b95a1]"
+                              )}>
+                                {post.status}
+                              </Badge>
+                              {isUrgent && (
+                                <Badge className="rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-[#f04452]/10 text-[#f04452] border-none animate-pulse">
+                                  🔥 D-{daysLeft}
+                                </Badge>
+                              )}
                             </div>
-                            <div className="flex flex-col">
-                              <span className="text-xs md:text-sm font-semibold text-[#191f28]">
+                            <span className="text-[10px] font-medium text-[#b0b8c1]">
+                              {format(new Date(post.created_at), 'MM.dd')}
+                            </span>
+                          </div>
+
+                          {/* ── Title ── */}
+                          <h3 className="mb-2 md:mb-3 text-[15px] md:text-lg font-bold tracking-tight text-[#191f28] group-hover:text-[#3182f6] transition-colors leading-snug line-clamp-2">
+                            {post.title}
+                          </h3>
+
+                          {/* ── Content Preview ── */}
+                          <p className="mb-4 md:mb-5 line-clamp-2 text-[13px] md:text-sm font-medium leading-relaxed text-[#6b7684]">
+                            {post.content}
+                          </p>
+
+                          {/* ── Tags ── */}
+                          <div className="mb-4 md:mb-5 flex flex-wrap gap-1.5">
+                            <span className="inline-flex items-center rounded-lg bg-[#f2f4f6] px-2.5 py-1 text-[11px] text-[#4e5968] font-semibold">
+                              <CategoryIcon category={post.category} />
+                              {post.category}
+                            </span>
+                            {['React', 'Next.js', 'TypeScript', 'Figma'].map(skill =>
+                              post.content.toLowerCase().includes(skill.toLowerCase()) && (
+                                <span key={skill} className="inline-flex items-center rounded-lg bg-[#f2f4f6] px-2.5 py-1 text-[11px] text-[#6b7684] font-medium">
+                                  {skill}
+                                </span>
+                              )
+                            )}
+                          </div>
+
+                          {/* ── Footer: Author + Deadline ── */}
+                          <div className="mt-auto flex items-center justify-between pt-4 border-t border-[#f2f4f6]">
+                            <div className="flex items-center gap-2">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#3182f6]/20 to-[#3182f6]/5 text-[#3182f6]">
+                                <User size={12} />
+                              </div>
+                              <span className="text-xs font-semibold text-[#333d4b]">
                                 {post.author?.name || '익명'}
                               </span>
-                              <span className="text-[10px] md:text-[11px] font-medium text-[#8b95a1]">
-                                {post.author?.major || '전공 미입력'}
+                              <span className="text-[10px] font-medium text-[#b0b8c1]">
+                                {post.author?.major || ''}
                               </span>
                             </div>
-                          </div>
-                          <div className="text-[11px] md:text-xs font-bold text-[#f04452]">
-                            마감: {format(new Date(post.deadline), 'MM/dd')}
+                            <div className="flex items-center gap-1.5">
+                              <Users size={12} className="text-[#b0b8c1]" />
+                              <span className="text-[11px] font-bold text-[#8b95a1]">{post.member_count || 0}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    )
+                  })}
                 </AnimatePresence>
               </motion.div>
             )}
@@ -1424,19 +1432,21 @@ export default function App() {
       </Modal>
 
       {/* --- Footer --- */}
-      <footer className="bg-white py-24 border-t border-slate-50">
-        <div className="container mx-auto px-8 text-center">
-          <div className="mb-8 flex items-center justify-center">
-            <span className="text-2xl font-bold tracking-[-0.03em] text-[#191f28]">PINSKIN</span>
-          </div>
-          <p className="mb-12 text-lg font-medium text-[#8b95a1] tracking-tight">
-            © 2026 PINSKIN. 대학생들의 새로운 도전을 응원합니다. <br />
-            가장 쉽고 빠른 팀 빌딩 플랫폼.
-          </p>
-          <div className="flex justify-center gap-10 text-sm font-bold uppercase tracking-widest text-[#adb5bd]">
-            <a href="#" className="hover:text-[#3182f6] transition-colors">이용약관</a>
-            <a href="#" className="hover:text-[#3182f6] transition-colors">개인정보처리방침</a>
-            <a href="#" className="hover:text-[#3182f6] transition-colors">문의하기</a>
+      <footer className="bg-white border-t border-black/[0.04]">
+        <div className="container mx-auto px-5 md:px-8 py-12 md:py-16">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-md bg-[#3182f6] flex items-center justify-center">
+                <span className="text-white text-xs font-extrabold">P</span>
+              </div>
+              <span className="text-base font-extrabold tracking-[-0.03em] text-[#191f28]">PINSKIN</span>
+              <span className="text-sm font-medium text-[#b0b8c1] ml-2">© 2026</span>
+            </div>
+            <div className="flex gap-6 text-sm font-semibold text-[#8b95a1]">
+              <a href="#" className="hover:text-[#191f28] transition-colors">이용약관</a>
+              <a href="#" className="hover:text-[#191f28] transition-colors">개인정보처리방침</a>
+              <a href="#" className="hover:text-[#191f28] transition-colors">문의하기</a>
+            </div>
           </div>
         </div>
       </footer>
